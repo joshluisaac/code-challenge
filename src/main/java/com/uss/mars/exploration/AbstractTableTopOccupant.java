@@ -1,6 +1,6 @@
 package com.uss.mars.exploration;
 
-public abstract class AbstractMasOccupant {
+public abstract class AbstractTableTopOccupant {
 
 
 
