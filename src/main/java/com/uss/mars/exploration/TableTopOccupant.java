@@ -1,6 +1,6 @@
 package com.uss.mars.exploration;
 
-public interface MasOccupant {
+public interface TableTopOccupant {
 
 
 
