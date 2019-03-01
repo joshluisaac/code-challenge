@@ -10,7 +10,7 @@ public class ExplorerMovement {
 
     //checks if the coordinates specified satisfies the boundaries of the grid
 
-    public boolean movementIsValid(final int xCoordinate, final int yCoordinate) {
+    public boolean coordinateIsValid(final int xCoordinate, final int yCoordinate) {
         final boolean xCoordIsValid =  POSSIBLE_VALUES.contains(xCoordinate);
         final boolean yCoordIsValid =  POSSIBLE_VALUES.contains(yCoordinate);
         return xCoordIsValid && yCoordIsValid;
