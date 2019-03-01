@@ -19,7 +19,8 @@ public class ExplorerMovement {
     //move to coordinate position
     void occupySlot(final Explorer exp) {
         exp.coordinateIsValid();
-        if (slotIsAvailable(exp) && commandQueueService.placeCommandIsHeadEnqued())
+        //if coordinate is valid and commandQueue is empty
+        if (slotIsAvailable(exp) && commandQueueService.placeCommandIsHeadEnqueued())
         {
             resetGrid();
             moveToCoordinatePosition();
