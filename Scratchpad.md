@@ -20,3 +20,8 @@ A collection that stores how an explorer went about it's previous journey.
 exploreShortestPath(){
 
 }
+
+
+Behaviour driven tests.
+1. Given a coordinate of points, when i check for movement validity i expect to get true.
+2. 
