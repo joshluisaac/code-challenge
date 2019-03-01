@@ -38,19 +38,4 @@ public class Explorer extends AbstractTableTopOccupant {
     public OccupantType getOccupantType() {
         return type;
     }
-
-
-    void occupyUnit() {
-
-        //check coordinate validity
-
-        // if it is an origin path reset blocks otherwise move to position
-
-        //move to position
-        //if true reset blocks
-
-
-    }
-
-
 }
