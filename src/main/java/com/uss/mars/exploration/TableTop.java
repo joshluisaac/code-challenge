@@ -1,15 +1,26 @@
 package com.uss.mars.exploration;
 
+import java.util.Arrays;
+
 //Represented as a multi-scripted array
 public class TableTop {
 
-private static final int[][] MATRIX_GRID = {
-        {0,1,2,3,4},
-        {0,1,2,3,4},
-        {0,1,2,3,4},
-        {0,1,2,3,4},
-        {0,1,2,3,4}
+private static final String[][] MATRIX_GRID = {
+        {"X","X","X","X","X"},
+        {"X","X","X","X","X"},
+        {"X","X","X","X","X"},
+        {"X","X","X","X","X"},
+        {"X","X","X","X","X"}
 };
+
+    public static void main(String[] args) {
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println(Arrays.toString(TableTop.MATRIX_GRID[i]));
+        }
+
+
+    }
 
 
 
