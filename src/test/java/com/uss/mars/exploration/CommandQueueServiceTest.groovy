@@ -1,9 +1,10 @@
 package com.uss.mars.exploration
 
+import groovy.transform.TypeChecked
 import spock.lang.Specification
 
+@TypeChecked
 class CommandQueueServiceTest extends Specification {
-
 
 def 'command at head of command queue must be PLACE'(){
     given: "an initialized command queue"
@@ -18,7 +19,7 @@ def 'command at head of command queue must be PLACE'(){
     def commandQueueService = new CommandQueueService(commandQueue)
 
     when: "we query the head of the queue"
-    def result = commandQueueService.placeCommandIsHeadEnqued()
+    def result = commandQueueService.placeCommandIsHeadEnqueued()
 
     then: "we expect to get true"
     result == true
