@@ -2,13 +2,14 @@ package com.uss.mars.exploration;
 
 public class CommandQueueService {
 
-    public CommandQueueService(){
-
+    private CommandQueue commandQueue;
+    public CommandQueueService(CommandQueue commandQueue){
+        this.commandQueue = commandQueue;
     }
 
     //checks if the front of the CommandQueue is a PLACE command.
     boolean placeCommandIsHeadEnqued(){
-        return false;
+        return commandQueue.peek().name.equals("PLACE");
     }
 
 }
