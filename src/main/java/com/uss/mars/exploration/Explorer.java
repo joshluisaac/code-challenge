@@ -2,16 +2,17 @@ package com.uss.mars.exploration;
 
 public class Explorer extends AbstractTableTopOccupant {
 
-    OccupantType type;
-    Coordinate coordinate;
+    private OccupantType type;
+    private Coordinate coordinate;
 
-    public Explorer(){
+    public Explorer(Coordinate coordinate){
         type = OccupantType.EXPLORER;
+        this.coordinate = coordinate;
     }
 
 
     @Override
-    boolean coordinateIsValid(Coordinate coordinate) {
+    boolean coordinateIsValid(final Coordinate coordinate) {
         return MovementUtils.pathIsValid(coordinate);
     }
 
