@@ -1,7 +1,8 @@
 package com.uss.mars.exploration;
 
-public abstract class AbstractTableTopOccupant {
+public abstract class AbstractTableTopOccupant implements TableTopOccupant {
 
-    abstract boolean coordinateIsValid(final Coordinate coordinate);
-    abstract OccupantType getOccupantType();
+    public abstract boolean coordinateIsValid(final Coordinate coordinate);
+    public abstract boolean coordinateIsValid();
+    public abstract OccupantType getOccupantType();
 }
