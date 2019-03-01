@@ -8,8 +8,7 @@ public class CommandQueueService {
     }
 
     //checks if the front of the CommandQueue is a PLACE command.
-    boolean placeCommandIsHeadEnqued(){
+    public boolean placeCommandIsHeadEnqueued(){
         return commandQueue.peek().name.equals("PLACE");
     }
-
 }
