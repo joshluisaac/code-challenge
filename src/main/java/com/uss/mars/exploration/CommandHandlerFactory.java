@@ -4,8 +4,7 @@ public class CommandHandlerFactory {
 
     public static CommandHandler getHandler(Command command) {
         if (command.getName().equals(CommandType.PLACE.toString())) {
-            return new PlaceCommandHandler(new MarsExplorer(new Coordinate(command.getxAxis(), command.getyAxis())),
-                    null);
+            return new PlaceCommandHandler(new MarsExplorer(new Coordinate(command.getxAxis(), command.getyAxis())),null);
         }
 
         if (command.getName().equals(CommandType.BLOCK.toString())) {
