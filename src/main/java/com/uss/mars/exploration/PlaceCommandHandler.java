@@ -2,12 +2,12 @@ package com.uss.mars.exploration;
 
 //Explorer movement class
 //This class is dependent on the Explorer object and CommandQueueService
-public class ExplorerMovement {
+public class ExplorerCommandHandler {
 
     private Explorer exp;
     private CommandQueueService commandQueueService;
 
-    public ExplorerMovement(Explorer exp,CommandQueueService commandQueueService){
+    public ExplorerCommandHandler(Explorer exp, CommandQueueService commandQueueService){
         this.exp = exp;
         this.commandQueueService = commandQueueService;
     }
@@ -46,6 +46,10 @@ public class ExplorerMovement {
     }
 
     void moveToCoordinatePosition(){
+
+    }
+
+    void execute(){
 
     }
 
