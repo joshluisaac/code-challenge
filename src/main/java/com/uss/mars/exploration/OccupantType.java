@@ -1,7 +1,7 @@
 package com.uss.mars.exploration;
 
 public enum OccupantType {
-    EXPLORER("explorer",1), BLOCK("block",2);
+    EXPLORER("explorer",1), BLOCKER("block",2);
 
     private String name;
     private int id;
