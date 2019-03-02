@@ -1,12 +1,12 @@
 package com.uss.mars.exploration;
 
-public class Explorer implements TableTopOccupant {
+public class MarsExplorer implements TableTopOccupant {
 
     private OccupantType type;
     private Coordinate coordinate;
 
-    public Explorer(Coordinate coordinate) {
-        type = OccupantType.EXPLORER;
+    public MarsExplorer(Coordinate coordinate) {
+        type = OccupantType.MARS_EXPLORER;
         this.coordinate = coordinate;
     }
 
