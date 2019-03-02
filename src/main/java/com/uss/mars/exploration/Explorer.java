@@ -1,6 +1,6 @@
 package com.uss.mars.exploration;
 
-public class Explorer extends AbstractTableTopOccupant {
+public class Explorer implements TableTopOccupant {
 
     private OccupantType type;
     private Coordinate coordinate;
@@ -11,8 +11,8 @@ public class Explorer extends AbstractTableTopOccupant {
     }
 
     /**
-     * Checks for coordinate validity.
-     * Coordinate is said to be valid if it's X and Y position falls within the stipulated boundaries
+     * Checks for coordinate validity. Coordinate is said to be valid if it's X and
+     * Y position falls within the stipulated boundaries
      * <p>
      * The value of this is then used to prevent explorer from destruction.
      *
@@ -22,20 +22,21 @@ public class Explorer extends AbstractTableTopOccupant {
      */
 
     @Override
-    public boolean coordinateIsValid() {
-        return MovementUtils.pathIsValid(this.coordinate);
-    }
-
     public boolean coordinateIsValid(final Coordinate coordinate) {
         return coordinateIsValid();
     }
 
-    public Coordinate getCoordinate() {
-        return coordinate;
+    @Override
+    public boolean coordinateIsValid() {
+        return MovementUtils.pathIsValid(this.coordinate);
     }
 
     @Override
     public OccupantType getOccupantType() {
         return type;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
     }
 }
