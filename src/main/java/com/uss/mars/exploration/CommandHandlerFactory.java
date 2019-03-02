@@ -4,15 +4,20 @@ public class CommandHandlerFactory {
 
     public static CommandHandler getHandler(Command command){
         if(command.getName().equals(CommandType.PLACE.toString())) {
-            Explorer explorer  = new Explorer(new Coordinate(command.getxAxis(),command.getyAxis()));
-            return new PlaceCommandHandler(explorer,null);
+            return new PlaceCommandHandler(new Explorer(new Coordinate(command.getxAxis(),command.getyAxis())),null);
         }
 
-        if(command.getName().equals(CommandType.PLACE.toString())) {
-            Explorer explorer  = new Explorer(new Coordinate(command.getxAxis(),command.getyAxis()));
-            return new PlaceCommandHandler(explorer,null);
+        if(command.getName().equals(CommandType.BLOCK.toString())) {
+            return new BlockCommandHandler(new Blocker(new Coordinate(command.getxAxis(),command.getyAxis())));
         }
 
+        if(command.getName().equals(CommandType.EXPLORE.toString())) {
+            return new ExploreCommandHandler();
+        }
+
+        if(command.getName().equals(CommandType.REPORT.toString())) {
+            return new ReportCommandHandler();
+        }
         return null; // todo: refactor this
     }
 
