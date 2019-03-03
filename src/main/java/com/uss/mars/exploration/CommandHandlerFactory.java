@@ -9,10 +9,10 @@ public class CommandHandlerFactory {
 
     private CommandHandlerFactory(){}
 
-    public static CommandHandler getHandler(Command command, String[][] grid) {
+    public static CommandHandler getHandler(Command command, TableTop tableTop) {
         if (command.getName().equals(CommandType.PLACE.toString())) {
             LOG.info("{} Command issued: processing using PlaceCommandHandler",CommandType.PLACE);
-            return new PlaceCommandHandler(new MarsExplorer(new Coordinate(command.getxAxis(), command.getyAxis())),grid);
+            return new PlaceCommandHandler(new MarsExplorer(new Coordinate(command.getxAxis(), command.getyAxis())),tableTop);
         }
 
         if (command.getName().equals(CommandType.BLOCK.toString())) {

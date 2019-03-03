@@ -1,33 +1,38 @@
 package com.uss.mars.exploration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 //Explorer movement class
 //This class is dependent on the Explorer object and CommandQueueService
 public class PlaceCommandHandler implements CommandHandler {
 
+
+    private static final Logger LOG = LoggerFactory.getLogger(PlaceCommandHandler.class);
     private MarsExplorer exp;
-    private String[][] grid;
+    private TableTop tableTop;
 
-    public PlaceCommandHandler(MarsExplorer exp, String[][] grid) {
+    public PlaceCommandHandler(MarsExplorer exp, TableTop tableTop) {
         this.exp = exp;
-        this.grid = grid;
+        this.tableTop = tableTop;
     }
 
-    @Override
-    public void execute() {
-
-    }
 
     // check coordinate validity
     // check if coordinate isn't already occupied. slotIsAvailable
     // if true check if the head of the CommandQueue is PLACE
     // reset blocks. That is, reinitialize the grid/TableTop.
     // move to coordinate position
-    void occupySlot() {
-        //exp.coordinateIsValid();
-        // if coordinate is valid and commandQueue is empty
+
+    @Override
+    public void execute() {
+        Coordinate coordinate = exp.getCoordinate();
         if (slotIsAvailable()) {
             resetGrid();
-            moveToCoordinatePosition();
+            moveToPosition();
+            tableTop.update(coordinate);
+        } else {
+            LOG.info("Slot position X:{} and Y:{} is blocked and occupied", coordinate.getCoordinateX(),coordinate.getCoordinateY());
         }
     }
 
@@ -41,15 +46,15 @@ public class PlaceCommandHandler implements CommandHandler {
     }
 
     SlotStatus slotAvailabilityStatus() {
-
         return SlotStatus.BLOCKED;
     }
 
+    //will reset all exiting blocks on the table.
     void resetGrid() {
 
     }
 
-    void moveToCoordinatePosition() {
+    void moveToPosition() {
 
     }
 

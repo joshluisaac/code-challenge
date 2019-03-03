@@ -11,8 +11,8 @@ public class SimulatorApp {
     private static final Logger LOG = LoggerFactory.getLogger(SimulatorApp.class);
 
     public static void main(String[] args) {
-        String[][] grid = TableTop.MATRIX_GRID;
-        Command cmd0 = new Command("PLACE",2,7);
+        final TableTop grid = new TableTop();
+        Command cmd0 = new Command("PLACE_",2,4);
         Command cmd1 = new Command("PLACE",0,0);
         Command cmd2 = new Command("PLACE",1,2);
         Command cmd3 = new Command("BLOCK",2,2);
@@ -29,25 +29,27 @@ public class SimulatorApp {
         Queue<Command> queue = commandQueueService.getQueue();
         final int queueSize = queue.size();
 
+        if (queueSize == 0) {
+            LOG.error("Command queue is empty, size {}. Please initialize with some valid commands.", queueSize);
+            throw new IllegalArgumentException("Command queue is empty. Please initialize with some valid commands.");
+        }
+
         //2. the PLACE,BLOCK,EXPLORE and REPORT commands are syntactically valid using regex.
-        commandQueueService.validateQueueCommands();
+        commandQueueService.validateQueueCommandSyntax();
 
         //go through all the commands in the queue and ensure the following
         //1. the coordinates are within the grid to avoid destruction
         commandQueueService.validateCoordinates();
 
 
-
-
         //ensure the first valid command to the explorer is a PLACE command
         //discard all commands in the queue until that condition is satisfied.
         if(commandQueueService.placeCommandIsHeadEnqueued()){
             for (Command command : queue) {
-                LOG.info(command.getName());
                 CommandHandlerFactory.getHandler(command,grid).execute();
             }
         } else {
-            LOG.info("Please ensure the first command issued is a PLACE command");
+            LOG.error("Operation discarded. Please ensure the first command issued is a PLACE command.");
         }
 
 

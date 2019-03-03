@@ -16,6 +16,11 @@ public static final String[][] MATRIX_GRID = {
     public final int minIndex = 0;
     public final int maxIndex = 4;
 
+    void update(Coordinate coordinate){
+        System.out.println(coordinate.toString());
+
+    }
+
     public static void main(String[] args) {
 
         for (int i = 0; i < 5; i++) {
