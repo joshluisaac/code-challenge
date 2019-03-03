@@ -3,8 +3,10 @@ package com.uss.mars.exploration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//Explorer movement class
-//This class is dependent on the Explorer object and CommandQueueService
+/**
+ * An implementation of {@link CommandHandler} that handles all <tt>PLACE<tt/>
+ * command requests in {@link CommandQueueService#queue}
+ */
 public class PlaceCommandHandler implements CommandHandler {
 
 
@@ -17,45 +19,36 @@ public class PlaceCommandHandler implements CommandHandler {
         this.tableTop = tableTop;
     }
 
-
-    // check coordinate validity
-    // check if coordinate isn't already occupied. slotIsAvailable
-    // if true check if the head of the CommandQueue is PLACE
-    // reset blocks. That is, reinitialize the grid/TableTop.
-    // move to coordinate position
-
+    /**
+     * Executes a bunch of methods and checks.
+     * Checks if a slot location is available and
+     * upon availability will reset grid and place explorer at that location.
+     * Otherwise a message is logged to console indicating location is blocked and update will not proceed.
+     */
     @Override
     public void execute() {
         Coordinate coordinate = exp.getCoordinate();
         if (slotIsAvailable()) {
-            resetGrid();
-            moveToPosition();
-            tableTop.update(coordinate);
+            tableTop.resetGrid();
+            tableTop.update(coordinate, exp.getOccupantType());
         } else {
-            LOG.info("Slot position X:{} and Y:{} is blocked and occupied", coordinate.getCoordinateX(),coordinate.getCoordinateY());
+            LOG.info("Slot position X:{} and Y:{} is blocked and occupied", coordinate.getCoordinateX(), coordinate.getCoordinateY());
         }
     }
 
-    // Checks for slot availability
-    // Takes an explorer and then checks if the slot it is asking for is available.
-    // A slot is defined available if it is not currently being occupied by any
-    // blocks.
-    // Please note, i used the word unit in the requirements to mean slots
-    boolean slotIsAvailable() {
-        return false;
+    /**
+     * A forwarding method which is a wrapper around {@link TableTop#slotIsAvailable(Coordinate)}  }
+     * Checks if a slot location is available.
+     * <p>
+     * A slot is defined available if it is not currently being occupied by any blocks.
+     * Please note, i used the word unit in the requirements to mean slots.
+     */
+    private boolean slotIsAvailable() {
+        return tableTop.slotIsAvailable(exp.getCoordinate());
     }
 
-    SlotStatus slotAvailabilityStatus() {
+    private SlotStatus slotAvailabilityStatus() {
         return SlotStatus.BLOCKED;
-    }
-
-    //will reset all exiting blocks on the table.
-    void resetGrid() {
-
-    }
-
-    void moveToPosition() {
-
     }
 
 }
