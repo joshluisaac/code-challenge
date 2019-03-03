@@ -38,10 +38,10 @@ public class SimulatorApp {
         //1. the PLACE,BLOCK,EXPLORE and REPORT commands are syntactically valid using regex.
         commandQueueService.validateQueueCommandSyntax();
 
-        //place command must start at origin.
+        //2. place command must start at origin.
         commandQueueService.isPlaceCommandAtOrigin();
 
-        //2. the coordinates are within the grid to avoid destruction
+        //3. the coordinates are within the grid to avoid destruction
         commandQueueService.validateCoordinates();
 
 
@@ -55,10 +55,7 @@ public class SimulatorApp {
             LOG.error("Operation discarded. Please ensure the first command issued is a PLACE command.");
         }
 
-        grid.print();
-
-
-
+        //grid.print();
 
     }
 

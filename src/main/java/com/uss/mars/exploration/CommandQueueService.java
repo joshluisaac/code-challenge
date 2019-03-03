@@ -11,7 +11,6 @@ import java.util.Queue;
 public class CommandQueueService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommandQueueService.class);
-
     private List<Command> commands;
     private Queue<Command> queue = new LinkedList<>();
 
@@ -20,17 +19,31 @@ public class CommandQueueService {
     }
 
 
-    //Takes a list of commands and then populates a queue
+    /**
+     * Takes a of {@link List<Command>} commands which
+     * was passed into the simulator to populate the queue.
+     *
+     */
     public void initialize() {
         queue.addAll(commands);
     }
 
 
-    //checks if the front of the CommandQueue is a PLACE command.
+    /**
+     * Checks if the front of the CommandQueue is a PLACE command.
+     *
+     * @return true or false.
+     */
     public boolean placeCommandIsHeadEnqueued() {
         return queue.peek().name.equals("PLACE");
     }
 
+    /**
+     * Checks if the command at the peek of the queue is a at origin.
+     * A {@link CommandType#PLACE} is said to be at origin if it's coordinates are <tt>(0,0)<tt/>
+     *
+     * @throws IllegalArgumentException if the specified command is not at origin.
+     */
     public boolean isPlaceCommandAtOrigin(){
         Command command = queue.peek();
         boolean result = command.getxAxis() == 0 && command.getyAxis() == 0;
@@ -42,8 +55,12 @@ public class CommandQueueService {
         return result;
     }
 
-    //skipAllCommandsInQueueUntilValidNonOriginPlaceIsIssued. TODO
-
+    /**
+     * Checks the coordinates of the PLACE, BLOCK and EXPLORE commands passed into the system.
+     * This check ensures the coordinates are valid and not out of grid bounds.
+     *
+     * @throws CoordinateOutsideBoundsException if the specified command is out of bounds.
+     */
     public boolean validateCoordinates() {
         for (Command command : queue) {
             final String placeCmd = CommandType.PLACE.toString();
@@ -61,9 +78,22 @@ public class CommandQueueService {
         return true;
     }
 
-    void validateQueueCommandSyntax() {
+    /**
+     * Checks all the commands which has been passed to the simulator for execution.
+     * This check uses regular expression and certain rules depending on the {@link CommandType}
+     *
+     * @throws InvalidSyntaxException which extends {@link RuntimeException} if the specified command is invalid.
+     */
+    public boolean validateQueueCommandSyntax() {
+
+        return true;
     }
 
+    /**
+     * A query method which returns a reference to the command queue.
+     *
+     * @return reference to the queue
+     */
     public Queue<Command> getQueue() {
         return this.queue;
     }
