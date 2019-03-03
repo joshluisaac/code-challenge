@@ -12,6 +12,20 @@ public class Blocker implements TableTopOccupant {
 
     @Override
     public OccupantType getOccupantType() {
-        return null;
+        return type;
+    }
+
+
+    @Override
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    @Override
+    public String toString() {
+        return "Blocker{" +
+                "type=" + type +
+                ", coordinate=" + coordinate +
+                '}';
     }
 }

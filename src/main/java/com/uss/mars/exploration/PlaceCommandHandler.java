@@ -9,10 +9,9 @@ import org.slf4j.LoggerFactory;
  */
 public class PlaceCommandHandler implements CommandHandler {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(PlaceCommandHandler.class);
-    private MarsExplorer exp;
-    private TableTop tableTop;
+    private final MarsExplorer exp;
+    private final TableTop tableTop;
 
     public PlaceCommandHandler(MarsExplorer exp, TableTop tableTop) {
         this.exp = exp;
@@ -30,9 +29,10 @@ public class PlaceCommandHandler implements CommandHandler {
         Coordinate coordinate = exp.getCoordinate();
         if (slotIsAvailable()) {
             tableTop.resetGrid();
-            tableTop.update(coordinate, exp.getOccupantType());
+            tableTop.resetIndex();
+            tableTop.update(exp);
         } else {
-            LOG.info("Slot position X:{} and Y:{} is blocked and occupied", coordinate.getCoordinateX(), coordinate.getCoordinateY());
+            LOG.info("SKIPPED {}: Slot position X:{} and Y:{} is occupied.", exp.getOccupantType(), coordinate.getCoordinateX(), coordinate.getCoordinateY());
         }
     }
 

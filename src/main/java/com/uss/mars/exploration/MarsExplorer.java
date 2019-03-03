@@ -15,7 +15,16 @@ public class MarsExplorer implements TableTopOccupant {
         return type;
     }
 
+    @Override
     public Coordinate getCoordinate() {
         return coordinate;
+    }
+
+    @Override
+    public String toString() {
+        return "MarsExplorer{" +
+                "type=" + type +
+                ", coordinate=" + coordinate +
+                '}';
     }
 }

@@ -31,6 +31,19 @@ public class CommandQueueService {
         return queue.peek().name.equals("PLACE");
     }
 
+    public boolean isPlaceCommandAtOrigin(){
+        Command command = queue.peek();
+        boolean result = command.getxAxis() == 0 && command.getyAxis() == 0;
+        if(!result) {
+            LOG.error("The specified X:{} and Y:{} coordinates for {} is not at origin.", command.getxAxis(), command.getyAxis(), command.name);
+            String errorMsg = MessageFormat.format("The specified X:{0} and Y:{1} coordinates for {2} is not at origin.",command.getxAxis(), command.getyAxis(), command.name);
+            throw new IllegalArgumentException(errorMsg);
+        }
+        return result;
+    }
+
+    //skipAllCommandsInQueueUntilValidNonOriginPlaceIsIssued. TODO
+
     public boolean validateCoordinates() {
         for (Command command : queue) {
             final String placeCmd = CommandType.PLACE.toString();

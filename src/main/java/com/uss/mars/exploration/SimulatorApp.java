@@ -12,10 +12,10 @@ public class SimulatorApp {
 
     public static void main(String[] args) {
         final TableTop grid = new TableTop();
-        Command cmd0 = new Command("PLACE",2,4);
-        Command cmd1 = new Command("PLACE",0,0);
-        Command cmd2 = new Command("PLACE",1,2);
-        Command cmd3 = new Command("BLOCK",2,2);
+        Command cmd0 = new Command("PLACE",0,0);
+        Command cmd1 = new Command("BLOCK",0,2);
+        Command cmd2 = new Command("BLOCK",0,3);
+        Command cmd3 = new Command("BLOCK",0,1);
         Command cmd4 = new Command("BLOCK",1,4);
         Command cmd5 = new Command("EXPLORE");
         Command cmd6 = new Command("REPORT");
@@ -37,6 +37,9 @@ public class SimulatorApp {
         //go through all the commands in the queue and ensure the following
         //1. the PLACE,BLOCK,EXPLORE and REPORT commands are syntactically valid using regex.
         commandQueueService.validateQueueCommandSyntax();
+
+        //place command must start at origin.
+        commandQueueService.isPlaceCommandAtOrigin();
 
         //2. the coordinates are within the grid to avoid destruction
         commandQueueService.validateCoordinates();
