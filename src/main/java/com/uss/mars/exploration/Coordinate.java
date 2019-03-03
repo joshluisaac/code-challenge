@@ -17,4 +17,12 @@ public class Coordinate {
     public int getCoordinateY() {
         return yCoordinate;
     }
+
+    @Override
+    public String toString() {
+        return "Coordinate{" +
+                "xCoordinate=" + xCoordinate +
+                ", yCoordinate=" + yCoordinate +
+                '}';
+    }
 }
