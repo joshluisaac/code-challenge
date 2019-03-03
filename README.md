@@ -4,9 +4,9 @@
 
 I tried to use words, terms and file naming convention related to the problem domain.
 1. `PLACE`,`BLOCK`,`EXPLORE` and `REPORT` are classified as the various command types. 
-This is represented as an enum constant in [CommandType](CommandType.java)
+This is represented as an enum constant in [CommandType](src/main/java/com/uss/mars/exploration/CommandType.java)
 2. `PLACE` and `BLOCK` have got X,Y coordinates which can be placed on the `TableTop`. 
-These commands are Occupants which implements the TableTopOccupant interface. 
+These commands are Occupants which implements the [TableTopOccupant](src/main/java/com/uss/mars/exploration/TableTopOccupant.java) interface. 
 
 ### Setup requirements.
 
