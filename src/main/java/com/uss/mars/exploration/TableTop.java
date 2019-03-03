@@ -5,13 +5,16 @@ import java.util.Arrays;
 //Represented as a multi-scripted array
 public class TableTop {
 
-private static final String[][] MATRIX_GRID = {
+public static final String[][] MATRIX_GRID = {
         {"X","X","X","X","X"},
         {"X","X","X","X","X"},
         {"X","X","X","X","X"},
         {"X","X","X","X","X"},
         {"X","X","X","X","X"}
 };
+
+    public final int minIndex = 0;
+    public final int maxIndex = 4;
 
     public static void main(String[] args) {
 

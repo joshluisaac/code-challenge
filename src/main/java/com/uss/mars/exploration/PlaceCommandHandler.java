@@ -5,11 +5,11 @@ package com.uss.mars.exploration;
 public class PlaceCommandHandler implements CommandHandler {
 
     private MarsExplorer exp;
-    private CommandQueueService commandQueueService;
+    private String[][] grid;
 
-    public PlaceCommandHandler(MarsExplorer exp, CommandQueueService commandQueueService) {
+    public PlaceCommandHandler(MarsExplorer exp, String[][] grid) {
         this.exp = exp;
-        this.commandQueueService = commandQueueService;
+        this.grid = grid;
     }
 
     @Override
@@ -23,9 +23,9 @@ public class PlaceCommandHandler implements CommandHandler {
     // reset blocks. That is, reinitialize the grid/TableTop.
     // move to coordinate position
     void occupySlot() {
-        exp.coordinateIsValid();
+        //exp.coordinateIsValid();
         // if coordinate is valid and commandQueue is empty
-        if (slotIsAvailable() && commandQueueService.placeCommandIsHeadEnqueued()) {
+        if (slotIsAvailable()) {
             resetGrid();
             moveToCoordinatePosition();
         }

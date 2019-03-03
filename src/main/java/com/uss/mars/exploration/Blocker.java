@@ -10,17 +10,6 @@ public class Blocker implements TableTopOccupant {
         this.coordinate = coordinate;
     }
 
-
-    @Override
-    public boolean coordinateIsValid(Coordinate coordinate) {
-        return false;
-    }
-
-    @Override
-    public boolean coordinateIsValid() {
-        return false;
-    }
-
     @Override
     public OccupantType getOccupantType() {
         return null;

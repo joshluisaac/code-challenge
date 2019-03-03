@@ -6,7 +6,9 @@ public class Command {
     int xAxis;
     int yAxis;
 
-    public Command(){}
+    public Command(String name){
+        this.name = name;
+    }
     public Command(String name, int xAxis, int yAxis){
         this.name = name;
         this.xAxis = xAxis;
