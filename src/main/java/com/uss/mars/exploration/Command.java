@@ -24,4 +24,13 @@ public class Command {
     public int getyAxis() {
         return yAxis;
     }
+
+    @Override
+    public String toString() {
+        return "Command{" +
+                "name='" + name + '\'' +
+                ", xAxis=" + xAxis +
+                ", yAxis=" + yAxis +
+                '}';
+    }
 }
