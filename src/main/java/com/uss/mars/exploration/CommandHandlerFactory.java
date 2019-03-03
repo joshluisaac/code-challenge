@@ -29,7 +29,7 @@ public class CommandHandlerFactory {
             LOG.info("{} Command issued: processing using ReportCommandHandler",CommandType.REPORT);
             return new ReportCommandHandler();
         }
-        return null; // todo: refactor this
+        return null; // todo: refactor this. Consider returning a NullDefaultHandler.
     }
 
 }

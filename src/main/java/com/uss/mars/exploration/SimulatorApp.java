@@ -12,7 +12,7 @@ public class SimulatorApp {
 
     public static void main(String[] args) {
         final TableTop grid = new TableTop();
-        Command cmd0 = new Command("PLACE_",2,4);
+        Command cmd0 = new Command("PLACE",2,4);
         Command cmd1 = new Command("PLACE",0,0);
         Command cmd2 = new Command("PLACE",1,2);
         Command cmd3 = new Command("BLOCK",2,2);
@@ -34,11 +34,11 @@ public class SimulatorApp {
             throw new IllegalArgumentException("Command queue is empty. Please initialize with some valid commands.");
         }
 
-        //2. the PLACE,BLOCK,EXPLORE and REPORT commands are syntactically valid using regex.
+        //go through all the commands in the queue and ensure the following
+        //1. the PLACE,BLOCK,EXPLORE and REPORT commands are syntactically valid using regex.
         commandQueueService.validateQueueCommandSyntax();
 
-        //go through all the commands in the queue and ensure the following
-        //1. the coordinates are within the grid to avoid destruction
+        //2. the coordinates are within the grid to avoid destruction
         commandQueueService.validateCoordinates();
 
 
@@ -51,6 +51,8 @@ public class SimulatorApp {
         } else {
             LOG.error("Operation discarded. Please ensure the first command issued is a PLACE command.");
         }
+
+        grid.print();
 
 
 
