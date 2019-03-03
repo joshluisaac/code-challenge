@@ -11,4 +11,8 @@ public class CommandQueueService {
     public boolean placeCommandIsHeadEnqueued(){
         return commandQueue.peek().name.equals("PLACE");
     }
+
+    void validateQueueCommands(){
+
+    }
 }

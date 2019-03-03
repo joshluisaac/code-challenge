@@ -11,12 +11,7 @@ public class CommandQueue {
     //Takes a list of commands and then populates a queue
     public void initialize(List<Command> commands) {
         queue.addAll(commands);
-        //for (Command command : commands) {
-          //  commandQueue.add(command);
-        //}
-
     }
-
 
     public Command peek(){
     return queue.peek();
