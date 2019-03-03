@@ -15,8 +15,8 @@ public class SimulatorApp {
         Command cmd0 = new Command("PLACE",0,0);
         Command cmd1 = new Command("BLOCK",0,2);
         Command cmd2 = new Command("BLOCK",0,3);
-        Command cmd3 = new Command("BLOCK",0,1);
-        Command cmd4 = new Command("BLOCK",1,4);
+        Command cmd3 = new Command("PLACE",0,1);
+        Command cmd4 = new Command("PLACE",1,4);
         Command cmd5 = new Command("EXPLORE");
         Command cmd6 = new Command("REPORT");
 

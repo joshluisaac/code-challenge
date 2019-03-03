@@ -3,6 +3,8 @@ package com.uss.mars.exploration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
+
 /**
  * An implementation of {@link CommandHandler} that handles all <tt>REPORT<tt/>
  * command requests in {@link CommandQueueService#queue}
@@ -24,7 +26,15 @@ public class ReportCommandHandler implements CommandHandler {
      */
     @Override
     public void execute() {
-        System.out.println(tableTop.getMatrixIndex().toString());
+        StringBuilder buff = new StringBuilder();
+        for (TableTopOccupant occupant : tableTop.getMatrixIndex()) {
+            String code = occupant.getOccupantType().getCode();
+            int xAxis = occupant.getCoordinate().getCoordinateX();
+            int yAxis = occupant.getCoordinate().getCoordinateY();
+            String formattedText = MessageFormat.format("{0}:({1},{2})",code,xAxis,yAxis);
+            buff.append(formattedText + " ");
+        }
+        System.out.println(buff.toString());
 
     }
 
