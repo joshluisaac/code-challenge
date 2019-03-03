@@ -27,14 +27,24 @@ public class ReportCommandHandler implements CommandHandler {
     @Override
     public void execute() {
         StringBuilder buff = new StringBuilder();
+        StringBuilder blockBuilder = new StringBuilder();
+        buff.append("E:");
+        blockBuilder.append("B:");
         for (TableTopOccupant occupant : tableTop.getMatrixIndex()) {
             String code = occupant.getOccupantType().getCode();
             int xAxis = occupant.getCoordinate().getCoordinateX();
             int yAxis = occupant.getCoordinate().getCoordinateY();
-            String formattedText = MessageFormat.format("{0}:({1},{2})",code,xAxis,yAxis);
-            buff.append(formattedText + " ");
+            if (code.equals("E")) {
+                String formattedText = MessageFormat.format("({0},{1})",xAxis,yAxis);
+                buff.append(formattedText + " ");
+            }
+            if (code.equals("B")) {
+                String formattedText = MessageFormat.format("({0},{1})",xAxis,yAxis);
+                blockBuilder.append(formattedText + " ");
+            }
+
         }
-        System.out.println(buff.toString());
+        System.out.println(buff.toString() +""+ blockBuilder.toString());
 
     }
 
