@@ -21,14 +21,11 @@ public class BlockCommandHandler  implements CommandHandler {
      */
     @Override
     public void execute() {
-        Coordinate coordinate = blocker.getCoordinate();
+        final Coordinate coordinate = blocker.getCoordinate();
         if(tableTop.slotIsAvailable(coordinate)) {
             tableTop.update(blocker);
         } else {
             LOG.info("SKIPPED {}: Slot position X:{} and Y:{} is occupied.", blocker.getOccupantType(), coordinate.getCoordinateX(), coordinate.getCoordinateY());
         }
-
-
-
     }
 }
