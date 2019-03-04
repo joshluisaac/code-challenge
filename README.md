@@ -1,8 +1,12 @@
 ### Definition of terms
+I tried to use words and file naming convention related to the problem domain.
+1. A coordinate is a region/position in space that has X and Y .... 
+This is represented as [Coordinate](src/main/java/com/uss/mars/exploration/Coordinate.java). 
+This could also be called a `Node` or a `Point`. However, for the sake of simplicity and easier understanding i called it `Coordinate`.
+
 
 ### System design decisions.
 
-I tried to use words, terms and file naming convention related to the problem domain.
 1. `PLACE`,`BLOCK`,`EXPLORE` and `REPORT` are classified as the various command types. 
 This is represented as an enum in [CommandType](src/main/java/com/uss/mars/exploration/CommandType.java)
 2. `PLACE` and `BLOCK` have got X,Y coordinates which can be placed on the [TableTop](src/main/java/com/uss/mars/exploration/TableTop.java). 
