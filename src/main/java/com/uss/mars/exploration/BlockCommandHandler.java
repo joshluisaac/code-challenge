@@ -14,6 +14,11 @@ public class BlockCommandHandler  implements CommandHandler {
         this.tableTop = tableTop;
     }
 
+    /**
+     * Will position an obstruction to the part of an explorer if that position has not been occupied.
+     * It first checks if that coordinate is available.If true it proceeds with placing the obstruction otherwise
+     * it will be skipped and ignored while message is logged to console.
+     */
     @Override
     public void execute() {
         Coordinate coordinate = blocker.getCoordinate();
