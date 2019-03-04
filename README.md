@@ -9,7 +9,8 @@ This is represented as an enum in [CommandType](src/main/java/com/uss/mars/explo
 These commands are of an [OccupantType](src/main/java/com/uss/mars/exploration/OccupantType) which implements the [TableTopOccupant](src/main/java/com/uss/mars/exploration/TableTopOccupant.java) interface. 
 3. These commands are read from the terminal/console/csv file, go through come rules and validation before they end up in a
 `CommandQueue`. [CommandQueueService](src/main/java/com/uss/mars/exploration/CommandQueueService.java) does most of this checks and validations. 
-4. 
+4. A couple of exceptions are thrown and logged by this service. The exceptions are custom exceptions and are relevant to the problem.
+Some of these exceptions includes
 
 
 ### Setup requirements.
