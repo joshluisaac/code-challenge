@@ -6,11 +6,15 @@ import java.util.List;
 
 public class MovementUtils {
 
-    private MovementUtils(){}
+    private MovementUtils() {
+    }
 
-    private static final List<Integer> POSSIBLE_VALUES = new ArrayList<>(Arrays.asList(0,1,2,3,4));
+    private static final List<Integer> POSSIBLE_VALUES = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
 
-    //checks if the coordinates specified satisfies the boundaries of the grid
+    public static final int X_MAX = 5;
+    public static final int Y_MAX = 5;
+
+    // checks if the coordinates specified satisfies the boundaries of the grid
 
     /**
      * Checks for coordinate validity. Coordinate is said to be valid if it's X and
@@ -23,9 +27,8 @@ public class MovementUtils {
      *
      */
     public static boolean coordinatePathIsValid(Coordinate coordinate) {
-        final boolean xCoordIsValid =  POSSIBLE_VALUES.contains(coordinate.getCoordinateX());
-        final boolean yCoordIsValid =  POSSIBLE_VALUES.contains(coordinate.getCoordinateY());
-        return xCoordIsValid && yCoordIsValid;
+        return coordinate.getCoordinateX() < X_MAX && coordinate.getCoordinateY() < Y_MAX
+                && coordinate.getCoordinateX() >= 0 && coordinate.getCoordinateY() >= 0;
     }
 
 }
