@@ -1,5 +1,9 @@
-package com.uss.mars.exploration;
+package com.uss.mars.exploration.services;
 
+import com.uss.mars.exploration.*;
+import com.uss.mars.exploration.exceptions.CoordinateOutsideBoundsException;
+import com.uss.mars.exploration.exceptions.InvalidSyntaxException;
+import com.uss.mars.exploration.utils.MovementUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,8 +52,8 @@ public class CommandQueueService {
         Command command = queue.peek();
         boolean result = command.getxAxis() == 0 && command.getyAxis() == 0;
         if(!result) {
-            LOG.error("The specified X:{} and Y:{} coordinates for {} is not at origin.", command.getxAxis(), command.getyAxis(), command.name);
-            String errorMsg = MessageFormat.format("The specified X:{0} and Y:{1} coordinates for {2} is not at origin.",command.getxAxis(), command.getyAxis(), command.name);
+            LOG.error("The specified X:{} and Y:{} coordinates for {} is not at origin.Origin is defined as (0,0)", command.getxAxis(), command.getyAxis(), command.name);
+            String errorMsg = MessageFormat.format("The specified X:{0} and Y:{1} coordinates for {2} is not at origin.Origin is defined as (0,0)",command.getxAxis(), command.getyAxis(), command.name);
             throw new IllegalArgumentException(errorMsg);
         }
         return result;

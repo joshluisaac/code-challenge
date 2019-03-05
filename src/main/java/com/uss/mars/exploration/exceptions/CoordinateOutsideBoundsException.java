@@ -1,4 +1,4 @@
-package com.uss.mars.exploration;
+package com.uss.mars.exploration.exceptions;
 
 public class CoordinateOutsideBoundsException extends RuntimeException {
 

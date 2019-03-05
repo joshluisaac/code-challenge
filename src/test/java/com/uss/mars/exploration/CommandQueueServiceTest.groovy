@@ -1,5 +1,6 @@
 package com.uss.mars.exploration
 
+import com.uss.mars.exploration.services.CommandQueueService
 import groovy.transform.TypeChecked
 import spock.lang.Specification
 

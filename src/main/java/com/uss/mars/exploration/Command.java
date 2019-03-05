@@ -2,9 +2,9 @@ package com.uss.mars.exploration;
 
 public class Command {
 
-    String name;
-    int xAxis;
-    int yAxis;
+    public final String name;
+    private int xAxis;
+    private int yAxis;
 
     public Command(String name){
         this.name = name;

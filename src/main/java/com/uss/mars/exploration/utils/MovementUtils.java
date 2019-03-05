@@ -1,4 +1,6 @@
-package com.uss.mars.exploration;
+package com.uss.mars.exploration.utils;
+
+import com.uss.mars.exploration.Coordinate;
 
 import java.util.ArrayList;
 import java.util.Arrays;

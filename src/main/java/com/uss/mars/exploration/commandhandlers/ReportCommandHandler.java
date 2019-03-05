@@ -1,5 +1,8 @@
-package com.uss.mars.exploration;
+package com.uss.mars.exploration.commandhandlers;
 
+import com.uss.mars.exploration.services.CommandQueueService;
+import com.uss.mars.exploration.TableTop;
+import com.uss.mars.exploration.TableTopOccupant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

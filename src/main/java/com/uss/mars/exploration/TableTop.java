@@ -16,9 +16,6 @@ public class TableTop {
 
 private static final List<TableTopOccupant> MATRIX_INDEX = new ArrayList<>();
 
-    public final int minIndex = 0;
-    public final int maxIndex = 4;
-
 
     public boolean slotIsAvailable(final Coordinate coordinate) {
         final String valueText = MATRIX[coordinate.getCoordinateX()][coordinate.getCoordinateY()];

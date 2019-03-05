@@ -1,5 +1,6 @@
 package com.uss.mars.exploration
 
+import com.uss.mars.exploration.utils.MovementUtils
 import spock.lang.Specification
 
 class MovementUtilsTest extends Specification {

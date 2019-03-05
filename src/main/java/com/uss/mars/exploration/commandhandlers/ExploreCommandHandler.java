@@ -1,4 +1,4 @@
-package com.uss.mars.exploration;
+package com.uss.mars.exploration.commandhandlers;
 
 public class ExploreCommandHandler implements CommandHandler {
 
