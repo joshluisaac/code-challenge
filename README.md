@@ -1,7 +1,7 @@
 Mars Explorer Simulator Project
 ===============================
 
-The purpose of this project is to simulate a mars explorer moving on a square tabletop, of dimensions 5 units x 5 units. The project includes the source code, sample test data, behaviour driven tests based on the specifications provided and build scripts for Maven. It also ships with a compiled version of the project making it makes it easy execute the application from terminal. The compiled version of the project resided in the `lib` directory and can be executed from `bin` using `runSimulator.sh`
+The purpose of this project is to simulate a mars explorer moving on a square tabletop, of dimensions 5 units x 5 units. The project includes the source code, sample test data, behaviour driven tests based on the specifications provided and build scripts for Maven. It also ships with a compiled version of the project making it makes it easy execute the application from terminal. The compiled version of the project resided in the `lib` directory and can be executed from `bin` using [runSimulator.sh](bin/runSimulator.sh)
 
 The Maven will automatically download all required dependencies, compile the project, and finally run the tests specs. 
 
