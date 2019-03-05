@@ -29,14 +29,27 @@ public class PlaceCommandHandler implements CommandHandler {
     @Override
     public void execute() {
         Coordinate coordinate = exp.getCoordinate();
-        if (slotIsAvailable()) {
-            tableTop.resetGrid();
-            tableTop.resetIndex();
-            tableTop.update(exp);
-        } else {
+        boolean isOriginCoordinates = coordinate.getCoordinateX() == 0 && coordinate.getCoordinateY() == 0;
+        if (slotIsAvailable() && isOriginCoordinates) {
+            process();
+        } else if (slotIsAvailable() && !isOriginCoordinates){
+            process();
+        } else if (!slotIsAvailable() &&  tableTop.getMatrix()[0][0].equals("E")) {
+            process();
+        }
+        else {
+            //if slot is taken and
             LOG.info("SKIPPED {}: Slot position X:{} and Y:{} is occupied.", exp.getOccupantType(), coordinate.getCoordinateX(), coordinate.getCoordinateY());
         }
     }
+
+
+    private void process(){
+        tableTop.resetGrid();
+        tableTop.resetIndex();
+        tableTop.update(exp);
+    }
+
 
     /**
      * A forwarding method which is a wrapper around {@link TableTop#slotIsAvailable(Coordinate)}  }

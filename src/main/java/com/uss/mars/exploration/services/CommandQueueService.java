@@ -106,6 +106,10 @@ public class CommandQueueService implements ICommandQueueService {
         return true;
     }
 
+    void getValidPlaceCommand(){
+
+    }
+
     /**
      * A query method which returns a reference to the command queue.
      *

@@ -2,17 +2,21 @@ package com.uss.mars.exploration;
 
 import com.uss.mars.exploration.commandhandlers.CommandHandlerFactory;
 import com.uss.mars.exploration.services.CommandQueueService;
+import com.uss.mars.exploration.utils.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Queue;
 
 public class SimulatorApp {
 
     private static final Logger LOG = LoggerFactory.getLogger(SimulatorApp.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         final TableTop grid = new TableTop();
         Command cmd0 = new Command("PLACE",0,0);
         Command cmd1 = new Command("BLOCK",0,2);
@@ -22,9 +26,15 @@ public class SimulatorApp {
         Command cmd5 = new Command("EXPLORE");
         Command cmd6 = new Command("REPORT");
 
+        final String fileName = "sampledata.txt";
+
+        List<String> contents = FileUtils.readFile(new File(fileName));
+        List<Command> commands = FileUtils.commandMapper(contents);
+
+        //Arrays.asList(cmd0,cmd1,cmd2,cmd3,cmd4,cmd5,cmd6)
 
         //in production commands would be passed in from cmdline or external file etc
-        CommandQueueService commandQueueService = new CommandQueueService(Arrays.asList(cmd0,cmd1,cmd2,cmd3,cmd4,cmd5,cmd6));
+        CommandQueueService commandQueueService = new CommandQueueService(commands);
         commandQueueService.initialize();
 
         //retrieve queue size, if size is = 0 then log and throw an exception (runtime)
