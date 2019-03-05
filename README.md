@@ -40,9 +40,17 @@ Running the tests with the provided data samples.
 The tests are written in groovy using Spock framework and the source code for the tests are located in `src/test/groovy`
 I choose groovy/spock because of it's simplicity and readability. Anyone looking at the tests would find it easy to figure out what's going on.
 
-The tests has to be compiled first using this command `mvn clean test-compile`
+The tests has to be compiled first using this command 
 
-Tests can be executed using this command `mvn clean install`
+```shell 
+mvn clean test-compile
+```
+
+Tests can be executed using this command 
+
+```shell 
+mvn clean install
+```
 
 
 Executing the simulator from Maven
