@@ -10,11 +10,11 @@
 
     <!-- ch.qos.logback.core.rolling.RollingFileAppender -->
 
-    <appender name="DEBUG_LOG" class="ch.qos.logback.core.FileAppender">
+   <appender name="DEBUG_LOG" class="ch.qos.logback.core.FileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>DEBUG</level>
         </filter>
-        <file>../logs/Application.log</file>
+        <file>Application.log</file>
         <encoder>
             <pattern>%d{ISO8601} %-5p %m%n</pattern>
         </encoder>
@@ -24,7 +24,7 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
-        <file>../logs/ApplicationError.log</file>
+        <file>ApplicationError.log</file>
         <encoder>
             <pattern>%d{ISO8601} %-5p %m%n</pattern>
         </encoder>
