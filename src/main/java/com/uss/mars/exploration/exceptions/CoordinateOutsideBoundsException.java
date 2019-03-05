@@ -25,7 +25,7 @@ public class CoordinateOutsideBoundsException extends RuntimeException {
     /**
      * Constructs an <code>CoordinateOutsideBoundsException</code> with the root cause.
      *
-     * @param t root cause
+     * @param cause root cause
      */
     public CoordinateOutsideBoundsException(Throwable cause) {
         super(cause);

@@ -25,7 +25,7 @@ public class InvalidSyntaxException extends RuntimeException {
     /**
      * Constructs an <code>InvalidSyntaxException</code> with the root cause.
      *
-     * @param t root cause
+     * @param cause root cause
      */
     public InvalidSyntaxException(Throwable cause) {
         super(cause);
