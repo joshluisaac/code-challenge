@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A utility providing file explorer movement methods.
+ */
 public class MovementUtils {
 
     private MovementUtils() {
     }
 
-    private static final List<Integer> POSSIBLE_VALUES = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
-
-    public static final int X_MAX = 5;
-    public static final int Y_MAX = 5;
+    private static final int X_MAX = 5;
+    private static final int Y_MAX = 5;
 
     // checks if the coordinates specified satisfies the boundaries of the grid
 
