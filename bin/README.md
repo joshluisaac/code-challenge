@@ -1,0 +1,1 @@
+This directory is here to host start scripts.

@@ -34,10 +34,19 @@ This will compile, package and install the project. A JAR file called `marsexplo
 at the end of this phase and the result is copied to `target` directory.
 
 
+Building and copying the dependencies
+----------------------------------------
+Run this command below to build and copy the dependencies to project `lib` directory.
+
+```shell
+mvn clean install -Dmaven.test.skip dependency:copy-dependencies
+```
+
+
 Running the tests with the provided data samples.
 --------------------------------------------------
 
-The tests are written in groovy using Spock framework and the source code for the tests are located in `src/test/groovy`
+The tests are written in groovy using Spock framework. The source code for the tests are located in `src/test/groovy` while the sample data is located here [sampledata.txt](sampledata.txt)
 I choose groovy/spock because of it's simplicity and readability. Anyone looking at the tests would find it easy to figure out what's going on.
 
 The tests has to be compiled first using this command 
