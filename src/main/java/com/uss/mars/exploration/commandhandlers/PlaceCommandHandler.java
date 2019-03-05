@@ -38,7 +38,7 @@ public class PlaceCommandHandler implements CommandHandler {
             process();
         }
         else {
-            //if slot is taken and
+            //if slot is taken
             LOG.info("SKIPPED {}: Slot position X:{} and Y:{} is occupied.", exp.getOccupantType(), coordinate.getCoordinateX(), coordinate.getCoordinateY());
         }
     }

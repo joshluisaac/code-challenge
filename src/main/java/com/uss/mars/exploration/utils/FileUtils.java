@@ -43,7 +43,6 @@ public class FileUtils {
         }
     }
 
-    //
 
     /**
      * Will parse, transform and map the commandline raw string input into a {@link List} of {@link Command} objects

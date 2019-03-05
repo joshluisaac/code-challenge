@@ -37,18 +37,32 @@ public class SimulatorApp {
         return true;
     }
 
-
+    /**
+     * Retrieves the {@link Queue} of {@link Command}
+     *
+     * @param commandQueueService command queue service.
+     *
+     * @return command queue
+     */
     public Queue<Command> getQueue(ICommandQueueService commandQueueService){
          return commandQueueService.getQueue();
     }
 
+    /**
+     * Checks if the head of the queue is of type {@link CommandType#PLACE}
+     *
+     * @param commandQueueService command queue service.
+     */
     public void checkHeadOfQueue(ICommandQueueService commandQueueService){
         if (!commandQueueService.placeCommandIsHeadEnqueued())
             LOG.error("Operation discarded. Please ensure the first command issued is a PLACE command.");
         throw new IllegalArgumentException("Operation discarded. Please ensure the first command issued is a PLACE command.");
     }
 
-
+    /**
+     * Processes the content of the queue
+     *
+     */
     public void process(ICommandQueueService commandQueueService,ITableTop grid){
         LOG.info("Command at the head of the queue is 'PLACE'");
         for (Command command : getQueue(commandQueueService)) {
