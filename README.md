@@ -139,6 +139,33 @@ These commands are of an [OccupantType](src/main/java/com/uss/mars/exploration/O
 3. These commands are read from the terminal/console/csv file, go through come rules and validation before they end up in a
 `CommandQueue`. [CommandQueueService](src/main/java/com/uss/mars/exploration/services/CommandQueueService.java) does most of this checks and validations. 
 4. A couple of exceptions are thrown and logged by this service. The exceptions are custom exceptions and are relevant to the problem.
-Some of these exceptions includes
+
+Exceptions.
+------------------
+1. If the coordinates of any of the commands is outside the boundaries of the table top, an `IllegalArgumentException` is thrown and logged. The messaged logged to terminal is as follows.
+
+```
+[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ marsexplorer ---
+2019-03-05 16:38:54,560 ERROR The specified X:0 and Y:1 coordinates for PLACE is not at origin.Origin is defined as (0,0)
+Exception in thread "main" java.lang.IllegalArgumentException: The specified X:0 and Y:1 coordinates for PLACE is not at origin.Origin is defined as (0,0)
+	at com.uss.mars.exploration.services.CommandQueueService.isPlaceCommandAtOrigin(CommandQueueService.java:65)
+	at com.uss.mars.exploration.SimulatorApp.main(SimulatorApp.java:58)
+[ERROR] Command execution failed.
+```
+
+2. If the first command issued to the simulator isn't a PLACE command, the following exception is thrown and logged to terminal.
+
+```
+[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ marsexplorer ---
+2019-03-05 16:46:31,191 INFO  Command at the origin is positioned at (0,0)
+2019-03-05 16:46:31,204 INFO  Coordinates validated successfully. All within the boundaries of the table top.
+2019-03-05 16:46:31,205 ERROR Operation discarded. Please ensure the first command issued is a PLACE command.
+Exception in thread "main" java.lang.IllegalArgumentException: Operation discarded. Please ensure the first command issued is a PLACE command.
+	at com.uss.mars.exploration.SimulatorApp.main(SimulatorApp.java:74)
+[ERROR] Command execution failed.
+```
+
+
+
 
 
