@@ -128,6 +128,7 @@
 					<argument>-classpath</argument>
 					<classpath/>
 					<argument>com.uss.mars.exploration.SimulatorApp</argument>
+					<argument>sampledata.txt</argument>
 				</arguments>
 				<addResourcesToClasspath>true</addResourcesToClasspath>
 				<additionalClasspathElements>

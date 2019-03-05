@@ -165,6 +165,16 @@ Exception in thread "main" java.lang.IllegalArgumentException: Operation discard
 [ERROR] Command execution failed.
 ```
 
+3. If no command was issued to the simulator, the following error is thrown and logged.
+
+```
+[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ marsexplorer ---
+2019-03-05 16:49:57,133 ERROR Command queue is empty, size 0. Please initialize with some valid commands.
+Exception in thread "main" java.lang.IllegalArgumentException: Command queue is empty. Please initialize with some valid commands.
+	at com.uss.mars.exploration.SimulatorApp.main(SimulatorApp.java:50)
+[ERROR] Command execution failed.
+```
+
 
 
 
