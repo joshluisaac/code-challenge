@@ -57,6 +57,62 @@
 				</execution>
 			</executions>
 		</plugin>
+
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<version>3.1.1</version>
+			<executions>
+				<execution>
+					<id>copy-dependencies</id>
+					<phase>package</phase>
+					<goals>
+						<goal>copy-dependencies</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				<outputDirectory>lib</outputDirectory>
+				<includeScope>compile</includeScope>
+				<overWriteReleases>true</overWriteReleases>
+				<overWriteSnapshots>true</overWriteSnapshots>
+				<overWriteIfNewer>true</overWriteIfNewer>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>1.6.0</version>
+			<executions>
+				<execution>
+					<goals>
+						<goal>java</goal>
+					</goals>
+				</execution>
+			</executions>
+			<configuration>
+				<executable>java</executable>
+				<arguments>
+					<argument>-classpath</argument>
+					<classpath/>
+					<argument>com.uss.mars.exploration.SimulatorApp</argument>
+				</arguments>
+				<addResourcesToClasspath>true</addResourcesToClasspath>
+				<additionalClasspathElements>
+					<additionalClasspathElement>bin</additionalClasspathElement>
+					<additionalClasspathElement>src/main/resources</additionalClasspathElement>
+				</additionalClasspathElements>
+			</configuration>
+		</plugin>
+
 	</plugins>
 
 </build>
