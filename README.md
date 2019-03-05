@@ -11,8 +11,9 @@ Prerequisites
 - Maven use `mvnw` wrapper
 
 
-### Building the docs
----
+
+Building the docs
+-------------------
 
 Execute the command below to build API javadoc from the source code.
 
@@ -22,8 +23,8 @@ mvn javadoc:javadoc
 
 The result is put in `/target/site/apidocs`
 
-### Building the source code
----
+Building the source code
+-------------------------
 
 ```shell
 mvn clean install -Dmaven.test.skip=true
@@ -33,8 +34,8 @@ This will compile, package and install the project. A JAR file called `marsexplo
 at the end of this phase and the result is copied to `target` directory.
 
 
-### Running the tests with the provided data samples.
----
+Running the tests with the provided data samples.
+--------------------------------------------------
 
 The tests are written in groovy using Spock framework and the source code for the tests are located in `src/test/groovy`
 I choose groovy/spock because of it's simplicity and readability. Anyone looking at the tests would find it easy to figure out what's going on.
@@ -44,19 +45,29 @@ The tests has to be compiled first using this command `mvn clean test-compile`
 Tests can be executed using this command `mvn clean install`
 
 
-### Executing the simulator.
+Executing the simulator from Maven
+------------------------------------
 
----
+
+Executing the simulator from terminal
+--------------------------------------
+cd into the `bin` directory and run 
 
 
-### Definition of terms
+
+Definition of terms
+-----------------------
+
 I tried to use words and file naming convention related to the problem domain.
 1. A coordinate is a region/position in space that has X and Y .... 
 This is represented as [Coordinate](src/main/java/com/uss/mars/exploration/Coordinate.java). 
 This could also be called a `Node` or a `Point`. However, for the sake of simplicity and easier understanding i called it `Coordinate`.
 
+2. A slot is a unit or a cell with 4 sides located on the table top.
 
-### System design decisions.
+
+System design decisions.
+----------------------------
 
 1. `PLACE`,`BLOCK`,`EXPLORE` and `REPORT` are classified as the various command types. 
 This is represented as an enum in [CommandType](src/main/java/com/uss/mars/exploration/CommandType.java)
