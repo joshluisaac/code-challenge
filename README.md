@@ -6,7 +6,9 @@
 ### Maven dependencies.
 ---
 
-#### Building the docs
+### Building the docs
+---
+
 Execute the command below to build API javadoc from the source code.
 
 ```shell
@@ -15,10 +17,11 @@ mvn javadoc:javadoc
 
 The result is put in `/target/site/apidocs`
 
-#### Building the source code
+### Building the source code
+---
 
 ```shell
-mvn clean install
+mvn clean install -Dmaven.test.skip=true
 ```
 
 This will compile, test, package and install the project. A JAR file called `marsexplorer-0.0.1-SNAPSHOT.jar` is generated
@@ -28,6 +31,9 @@ at the end of this phase and the result is copied to `target` directory.
 ### Running the tests with the provided data samples.
 ---
 
+```shell
+mvn clean install
+```
 
 
 ### Executing the simulator.
