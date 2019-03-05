@@ -1,6 +1,7 @@
 package com.uss.mars.exploration.commandhandlers;
 
 import com.uss.mars.exploration.Blocker;
+import com.uss.mars.exploration.ITableTop;
 import com.uss.mars.exploration.services.CommandQueueService;
 import com.uss.mars.exploration.Coordinate;
 import com.uss.mars.exploration.TableTop;
@@ -15,9 +16,9 @@ public class BlockCommandHandler  implements CommandHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(BlockCommandHandler.class);
     private final Blocker blocker;
-    private final TableTop tableTop;
+    private final ITableTop tableTop;
 
-    public BlockCommandHandler(Blocker blocker, TableTop tableTop){
+    public BlockCommandHandler(Blocker blocker, ITableTop tableTop){
         this.blocker = blocker;
         this.tableTop = tableTop;
     }

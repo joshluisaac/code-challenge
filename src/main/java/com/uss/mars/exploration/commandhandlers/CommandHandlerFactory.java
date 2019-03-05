@@ -10,7 +10,7 @@ public class CommandHandlerFactory {
 
     private CommandHandlerFactory(){}
 
-    public static CommandHandler getHandler(Command command, TableTop tableTop) {
+    public static CommandHandler getHandler(Command command, ITableTop tableTop) {
         if (command.getName().equals(CommandType.PLACE.toString())) {
             LOG.debug("{} Command issued: processing using PlaceCommandHandler",CommandType.PLACE);
             return new PlaceCommandHandler(new MarsExplorer(new Coordinate(command.getxAxis(), command.getyAxis())),tableTop);

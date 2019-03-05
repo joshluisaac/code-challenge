@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 //Represented as a multi-scripted array
-public class TableTop {
+public class TableTop implements ITableTop {
     private static final String[][] MATRIX = {
             {"X","X","X","X","X"},
             {"X","X","X","X","X"},
@@ -60,16 +60,5 @@ private static final List<TableTopOccupant> MATRIX_INDEX = new ArrayList<>();
             System.out.println(Arrays.toString(TableTop.MATRIX[i]));
         }
     }
-
-    public static void main(String[] args) {
-
-        for (int i = 0; i < 5; i++) {
-            System.out.println(Arrays.toString(TableTop.MATRIX[i]));
-        }
-
-
-    }
-
-
 
 }

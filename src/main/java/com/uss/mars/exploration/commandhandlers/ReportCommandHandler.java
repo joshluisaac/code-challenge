@@ -1,5 +1,6 @@
 package com.uss.mars.exploration.commandhandlers;
 
+import com.uss.mars.exploration.ITableTop;
 import com.uss.mars.exploration.services.CommandQueueService;
 import com.uss.mars.exploration.TableTop;
 import com.uss.mars.exploration.TableTopOccupant;
@@ -16,9 +17,9 @@ import java.text.MessageFormat;
 public class ReportCommandHandler implements CommandHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ReportCommandHandler.class);
-    private final TableTop tableTop;
+    private final ITableTop tableTop;
 
-    public ReportCommandHandler(TableTop tableTop) {
+    public ReportCommandHandler(ITableTop tableTop) {
         this.tableTop = tableTop;
     }
 
@@ -47,7 +48,8 @@ public class ReportCommandHandler implements CommandHandler {
             }
 
         }
-        System.out.println(buff.toString() +""+ blockBuilder.toString());
+        LOG.info("RESULT: {}{}",buff.toString(),blockBuilder.toString());
+        System.out.println(buff.toString()+""+blockBuilder.toString());
 
     }
 

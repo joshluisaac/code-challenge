@@ -59,13 +59,13 @@ public class CommandQueueService implements ICommandQueueService {
     @Override
     public boolean isPlaceCommandAtOrigin(){
         Command command = queue.peek();
-        boolean result = command.getxAxis() == 0 && command.getyAxis() == 0;
-        if(!result) {
+        if(!(command.getxAxis() == 0 && command.getyAxis() == 0)) {
             LOG.error("The specified X:{} and Y:{} coordinates for {} is not at origin.Origin is defined as (0,0)", command.getxAxis(), command.getyAxis(), command.name);
             String errorMsg = MessageFormat.format("The specified X:{0} and Y:{1} coordinates for {2} is not at origin.Origin is defined as (0,0)",command.getxAxis(), command.getyAxis(), command.name);
             throw new IllegalArgumentException(errorMsg);
         }
-        return result;
+        LOG.info("Command at the origin is positioned at (0,0)");
+        return true;
     }
 
     /**
@@ -89,7 +89,7 @@ public class CommandQueueService implements ICommandQueueService {
                 }
             }
         }
-        LOG.info("Coordinates validated successfully.");
+        LOG.info("Coordinates validated successfully. All within the boundaries of the table top.");
         return true;
     }
 
@@ -106,9 +106,6 @@ public class CommandQueueService implements ICommandQueueService {
         return true;
     }
 
-    void getValidPlaceCommand(){
-
-    }
 
     /**
      * A query method which returns a reference to the command queue.

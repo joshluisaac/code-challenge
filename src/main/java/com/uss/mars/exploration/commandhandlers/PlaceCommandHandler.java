@@ -13,9 +13,9 @@ public class PlaceCommandHandler implements CommandHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(PlaceCommandHandler.class);
     private final MarsExplorer exp;
-    private final TableTop tableTop;
+    private final ITableTop tableTop;
 
-    public PlaceCommandHandler(MarsExplorer exp, TableTop tableTop) {
+    public PlaceCommandHandler(MarsExplorer exp, ITableTop tableTop) {
         this.exp = exp;
         this.tableTop = tableTop;
     }
