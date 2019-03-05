@@ -1,10 +1,15 @@
-### Setup requirements.
+Mars Explorer Simulator Project
+===============================
 
+The purpose of this project is to simulate a mars explorer moving on a square tabletop, of dimensions 5 units x 5 units. The project includes the source code, sample test data, behaviour driven tests based on the specifications provided and build scripts for Maven. It also ships with a compiled version of the project making it makes it easy execute the application from terminal. The compiled version of the project resided in the `lib` directory and can be executed from `bin` using `runSimulator.sh`
 
----
+The Maven will automatically download all required dependencies, compile the project, and finally run the tests specs. 
 
-### Maven dependencies.
----
+Prerequisites
+-------------
+- JDK 7 or higher
+- Maven use `mvnw` wrapper
+
 
 ### Building the docs
 ---
@@ -24,16 +29,19 @@ The result is put in `/target/site/apidocs`
 mvn clean install -Dmaven.test.skip=true
 ```
 
-This will compile, test, package and install the project. A JAR file called `marsexplorer-0.0.1-SNAPSHOT.jar` is generated
+This will compile, package and install the project. A JAR file called `marsexplorer-0.0.1-SNAPSHOT.jar` is generated
 at the end of this phase and the result is copied to `target` directory.
 
 
 ### Running the tests with the provided data samples.
 ---
 
-```shell
-mvn clean install
-```
+The tests are written in groovy using Spock framework and the source code for the tests are located in `src/test/groovy`
+I choose groovy/spock because of it's simplicity and readability. Anyone looking at the tests would find it easy to figure out what's going on.
+
+The tests has to be compiled first using this command `mvn clean test-compile`
+
+Tests can be executed using this command `mvn clean install`
 
 
 ### Executing the simulator.
