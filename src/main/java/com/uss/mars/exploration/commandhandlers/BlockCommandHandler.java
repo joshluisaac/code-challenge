@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * An implementation of {@link CommandHandler} that handles all <tt>BLOCK<tt/>
+ * An implementation of {@link CommandHandler} that handles all <tt>BLOCK</tt>
  * command requests in {@link CommandQueueService#queue}
  */
 public class BlockCommandHandler  implements CommandHandler {

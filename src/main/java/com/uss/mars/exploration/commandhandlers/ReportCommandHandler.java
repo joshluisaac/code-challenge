@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 
 /**
- * An implementation of {@link CommandHandler} that handles all <tt>REPORT<tt/>
+ * An implementation of {@link CommandHandler} that handles all <tt>REPORT</tt>
  * command requests in {@link CommandQueueService#queue}
  */
 

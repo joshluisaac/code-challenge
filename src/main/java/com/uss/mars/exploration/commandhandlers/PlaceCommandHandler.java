@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * An implementation of {@link CommandHandler} that handles all <tt>PLACE<tt/>
+ * An implementation of {@link CommandHandler} that handles all <tt>PLACE</tt>
  * command requests in {@link CommandQueueService#queue}
  */
 public class PlaceCommandHandler implements CommandHandler {
