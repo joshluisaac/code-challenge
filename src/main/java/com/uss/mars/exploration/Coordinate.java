@@ -2,8 +2,8 @@ package com.uss.mars.exploration;
 
 public class Coordinate {
 
-    private int xCoordinate;
-    private int yCoordinate;
+    public int xCoordinate;
+    public int yCoordinate;
 
     public Coordinate(int xCoordinate, int yCoordinate) {
         this.xCoordinate = xCoordinate;
