@@ -67,7 +67,8 @@ class PlaceCommandHandlerTest extends Specification {
         when: "we handle the PLACE command"
         placeCommandHandler.execute()
 
-        then: ""
+        then: "the table top should be refreshed"
+        tableTop.getMatrix()[explorer.getCoordinate().getCoordinateX()][explorer.getCoordinate().getCoordinateY()] == "E"
 
 
     }
