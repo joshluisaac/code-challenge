@@ -99,6 +99,18 @@ Run this command to execute the Simulator from maven. This command depends on `E
 mvn exec:exec
 ```
 
+This command would yield the following log messages and output.
+
+```
+[INFO] 
+[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ marsexplorer ---
+2019-03-05 16:32:26,211 INFO  Command at the origin is positioned at (0,0)
+2019-03-05 16:32:26,222 INFO  Coordinates validated successfully. All within the boundaries of the table top.
+2019-03-05 16:32:26,222 INFO  Command at the head of the queue is 'PLACE'
+2019-03-05 16:32:26,233 INFO  RESULT: E:(0,0) B:(0,1) (0,2) 
+E:(0,0) B:(0,1) (0,2)
+```
+
 
 Executing the simulator from terminal
 --------------------------------------
@@ -110,7 +122,7 @@ Definition of terms
 -----------------------
 
 I tried to use words and file naming convention related to the problem domain.
-1. A coordinate is a region/position in space that has X and Y .... 
+1. A coordinate is a region/position in space that has X and Y values. 
 This is represented as [Coordinate](src/main/java/com/uss/mars/exploration/Coordinate.java). 
 This could also be called a `Node` or a `Point`. However, for the sake of simplicity and easier understanding i called it `Coordinate`.
 
