@@ -49,12 +49,46 @@ mvn clean test-compile
 Tests can be executed using this command 
 
 ```shell 
-mvn clean install
+mvn test
 ```
+This will run all the tests in `src/test/groovy` directory and you will see an output like this below.
+
+```
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.1:test (default-test) @ marsexplorer ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.uss.mars.exploration.CommandQueueServiceTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.632 s - in com.uss.mars.exploration.CommandQueueServiceTest
+[INFO] Running com.uss.mars.exploration.MovementUtilsTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in com.uss.mars.exploration.MovementUtilsTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.389 s
+[INFO] Finished at: 2019-03-03T15:05:07+11:00
+[INFO] ------------------------------------------------------------------------
+
+```
+
+
 
 
 Executing the simulator from Maven
 ------------------------------------
+Run this command to execute the Simulator from maven. This command depends on `Exec Maven Plugin`.
+
+
+```shell
+mvn exec:exec
+```
 
 
 Executing the simulator from terminal
