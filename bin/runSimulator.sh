@@ -112,7 +112,7 @@ if [ -n "$OTHER_OPTS" ]; then
  JAVA_OPTS=$JAVA_OPTS" $OTHER_OPTS"
 fi
 
-$JAVA $JAVA_OPTS -Xloggc:$LOGS/gc.log -XX:+PrintGCDetails com.powerapps.monitor.StartLogMonitor 1>$LOG_FILE 2>&1 &
+$JAVA $JAVA_OPTS -Xloggc:$LOGS/gc.log -XX:+PrintGCDetails com.uss.mars.exploration.SimulatorApp 1>$LOG_FILE 2>&1 &
 
 echo $! > $LOGS/procid
 echo $LOG_FILE > $LOGS/logname
