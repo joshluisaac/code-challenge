@@ -117,6 +117,24 @@ Executing the simulator from terminal
 cd into the `bin` directory and run 
 
 
+```bash
+ ./runSimulator.sh ../sampledata.txt
+```
+
+Executing this command will produce an output similar to this
+
+```
+➜  bin git:(master) ✗ ./runSimulator.sh ../sampledata.txt
+Unable to find a $JAVA_HOME at "/usr", continuing with system-provided Java...
+2019-03-06 12:02:11,186 INFO  Command at the origin is positioned at (0,0)
+2019-03-06 12:02:11,206 INFO  Coordinates validated successfully. All within the boundaries of the table top.
+true
+2019-03-06 12:02:11,207 INFO  Command at the head of the queue is 'PLACE'
+2019-03-06 12:02:11,217 INFO  RESULT: E:(0,0) B:(0,1) (0,2) 
+E:(0,0) B:(0,1) (0,2)
+```
+
+
 
 Definition of terms
 -----------------------
