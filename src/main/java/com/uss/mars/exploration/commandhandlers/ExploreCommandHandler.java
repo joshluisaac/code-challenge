@@ -39,6 +39,7 @@ public class ExploreCommandHandler implements CommandHandler {
         builder.append("PATH: ");
         builder.append("(" + src.xCoordinate +","+src.yCoordinate +") ");
         builder.append(pathScanner.getExplorationResult());
+        LOG.info(builder.toString());
         System.out.println(builder.toString());
 
     }
