@@ -54,9 +54,10 @@ public class SimulatorApp {
      * @param commandQueueService command queue service.
      */
     public void checkHeadOfQueue(ICommandQueueService commandQueueService){
-        if (!commandQueueService.placeCommandIsHeadEnqueued())
+        if (!commandQueueService.placeCommandIsHeadEnqueued()) {
             LOG.error("Operation discarded. Please ensure the first command issued is a PLACE command.");
-        throw new IllegalArgumentException("Operation discarded. Please ensure the first command issued is a PLACE command.");
+            throw new IllegalArgumentException("Operation discarded. Please ensure the first command issued is a PLACE command.");
+        }
     }
 
     /**

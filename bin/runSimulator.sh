@@ -12,7 +12,7 @@ JAVA_HOME=/usr
 MIN_MEMORY=4096
 
 ## MAXIMUM MEMORY TO BE ALLOCATED TO THE JVM, IN MEGABYTES
-MAX_MEMORY=8192
+MAX_MEMORY=4096
 
 ## LOG FILE NAME DATE FORMAT
 ## THIS IS AN ADVANCE SETTING, PLEASE DON'T PLAY WITH IT UNLESS YOU'RE AN EXPERT IN BASH 'date' COMMAND FORMAT
@@ -65,12 +65,12 @@ HomeDir=$CurDir/..
 cd $CurDir
 
 
-RESOURCES=$HomeDir/resources
+RESOURCES=$HomeDir/config
 LIB=$HomeDir/lib
 LOGS=$HomeDir/logs
 
 
-CLASSPATH=$LOGS
+CLASSPATH=$RESOURCES
 CLASSPATH=$CLASSPATH:$LIB/marsexplorer-0.0.1-SNAPSHOT.jar
 CLASSPATH=$CLASSPATH:$LIB/slf4j-api-1.7.25.jar
 CLASSPATH=$CLASSPATH:$LIB/logback-core-1.2.3.jar
@@ -104,18 +104,13 @@ if [ "$ENABLE_JMX" == "true" -o "$ENABLE_JMX" == "TRUE" ]; then
 	JAVA_OPTS=$JAVA_OPTS" -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=$JMX_PORT -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 fi
 
-if [ -n "$GC" ]; then
- JAVA_OPTS=$JAVA_OPTS" -XX:PermSize=512m -XX:MaxPermSize=1024m -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:"$GC
-fi
-
 if [ -n "$OTHER_OPTS" ]; then
  JAVA_OPTS=$JAVA_OPTS" $OTHER_OPTS"
 fi
 
-$JAVA $JAVA_OPTS -Xloggc:$LOGS/gc.log -XX:+PrintGCDetails com.uss.mars.exploration.SimulatorApp 1>$LOG_FILE 2>&1 &
+$JAVA $JAVA_OPTS -Xloggc:$LOGS/gc.log -XX:+PrintGCDetails com.uss.mars.exploration.SimulatorApp $1
 
 echo $! > $LOGS/procid
 echo $LOG_FILE > $LOGS/logname
 chmod 770 $LOGS/logname
 chmod 770 $LOGS/procid
-chmod 770 $LOG_FILE
