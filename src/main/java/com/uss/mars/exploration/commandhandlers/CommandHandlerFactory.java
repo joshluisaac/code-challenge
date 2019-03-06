@@ -23,7 +23,7 @@ public class CommandHandlerFactory {
 
         if (command.getName().equals(CommandType.EXPLORE.toString())) {
             LOG.debug("{} Command issued: processing using ExploreCommandHandler",CommandType.EXPLORE);
-            return new ExploreCommandHandler();
+            return new ExploreCommandHandler(new Explorer(new Coordinate(command.getxAxis(),command.getyAxis())),tableTop);
         }
 
         if (command.getName().equals(CommandType.REPORT.toString())) {
