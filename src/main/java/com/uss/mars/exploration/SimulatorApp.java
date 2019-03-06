@@ -63,6 +63,10 @@ public class SimulatorApp {
     /**
      * Processes the content of the queue
      *
+     *
+     * @param commandQueueService command queue service
+     * @param grid the table top
+     *
      */
     public void process(ICommandQueueService commandQueueService,ITableTop grid){
         LOG.info("Command at the head of the queue is 'PLACE'");
