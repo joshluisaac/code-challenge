@@ -1,8 +1,8 @@
-package com.kollect.etl.util;
-
-import java.io.Reader;
+package com.codechallenge.pwc.au.utils;
 
 import com.google.gson.Gson;
+
+import java.io.Reader;
 import java.lang.reflect.Type;
 //com.google.gson.reflect.TypeToken
 
