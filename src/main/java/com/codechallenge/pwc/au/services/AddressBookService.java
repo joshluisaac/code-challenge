@@ -3,14 +3,11 @@ package com.codechallenge.pwc.au.services;
 import com.codechallenge.pwc.au.entities.AddressBook;
 import com.codechallenge.pwc.au.entities.Contact;
 import com.codechallenge.pwc.au.persistence.IDao;
-import com.codechallenge.pwc.au.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.nio.file.Files;
 import java.util.Map;
 
 public class AddressBookService {
@@ -26,10 +23,6 @@ public class AddressBookService {
         this.addressBook = addressBook;
     }
 
-    public Map<String,String> getAddressBook(){
-        return addressBook.getContacts();
-    }
-
     public void saveContact(final Contact contact) {
         Map<String,String> existingContacts = getAddressBook();
         int size = existingContacts.size();
@@ -42,15 +35,12 @@ public class AddressBookService {
         } else {
             dao.add(existingContacts,contact);
         }
-
         LOG.info("Saved contact");
-
     }
 
     public void displayAddressBook(){
         LOG.info("Displaying contact numbers ordered by name.");
         for(Map.Entry<String, String> entry : getAddressBook().entrySet()) {
-            //LOG.info("{} {}", entry.getKey(), entry.getValue());
             System.out.println(entry.getKey() +" "+ entry.getValue());
         }
     }
@@ -61,6 +51,10 @@ public class AddressBookService {
 
     public boolean contactNumberExists(Map<String,String> map, String key){
         return map.containsKey(key);
+    }
+
+    public Map<String,String> getAddressBook(){
+        return addressBook.getContacts();
     }
 
 

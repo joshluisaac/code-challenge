@@ -25,11 +25,6 @@ public class AddressBookDao implements IDao {
         try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))){
             buff.write(content);
         }
-
-
-
-
-
     }
 
 }
