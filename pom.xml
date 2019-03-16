@@ -2,12 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+
 	<groupId>com.avantsystems</groupId>
 	<artifactId>code-challenge</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -111,31 +106,29 @@
 				<overWriteIfNewer>true</overWriteIfNewer>
 			</configuration>
 		</plugin>
+		
+		<!-- Maven Shade Plugin -->
 		<plugin>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>exec-maven-plugin</artifactId>
-			<version>1.6.0</version>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-shade-plugin</artifactId>
+			<version>3.2.1</version>
 			<executions>
+				<!-- Run shade goal on package phase -->
 				<execution>
+					<phase>package</phase>
 					<goals>
-						<goal>java</goal>
+						<goal>shade</goal>
 					</goals>
+					<configuration>
+						<transformers>
+							<!-- add Main-Class to manifest file -->
+							<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<mainClass>com.codechallenge.pwc.au.AddressBookAppCLI</mainClass>
+							</transformer>
+						</transformers>
+					</configuration>
 				</execution>
 			</executions>
-			<configuration>
-				<executable>java</executable>
-				<arguments>
-					<argument>-classpath</argument>
-					<classpath/>
-					<argument>com.uss.mars.exploration.SimulatorApp</argument>
-					<argument>sampledata.txt</argument>
-				</arguments>
-				<addResourcesToClasspath>true</addResourcesToClasspath>
-				<additionalClasspathElements>
-					<additionalClasspathElement>bin</additionalClasspathElement>
-					<additionalClasspathElement>src/main/resources</additionalClasspathElement>
-				</additionalClasspathElements>
-			</configuration>
 		</plugin>
 
 	</plugins>
