@@ -48,8 +48,9 @@ public class AddressBookService {
     }
 
     public void displayAddressBook(){
+        LOG.info("Displaying contact numbers ordered by name.");
         for(Map.Entry<String, String> entry : getAddressBook().entrySet()) {
-            LOG.info("{} {}", entry.getKey(), entry.getValue());
+            //LOG.info("{} {}", entry.getKey(), entry.getValue());
             System.out.println(entry.getKey() +" "+ entry.getValue());
         }
     }
