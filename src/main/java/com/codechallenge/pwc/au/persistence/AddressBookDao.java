@@ -1,9 +1,10 @@
 package com.codechallenge.pwc.au.persistence;
-
-import com.codechallenge.pwc.au.entities.AddressBook;
 import com.codechallenge.pwc.au.entities.Contact;
 
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
 
 public class AddressBookDao implements IDao {
@@ -19,13 +20,16 @@ public class AddressBookDao implements IDao {
         map.put(contact.getName(),contact.getPhoneNumber());
     }
 
+    @Override
+    public void writeToDataStore(final File file, final String content) throws IOException {
+        try(BufferedWriter buff = new BufferedWriter(new FileWriter(file))){
+            buff.write(content);
+        }
 
-    public List<Contact> queryAddressBook(){
-        return null;
+
+
+
+
     }
 
-
-    public void mergeAddress(final AddressBook addressBook) {
-
-    }
 }

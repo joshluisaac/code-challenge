@@ -1,17 +1,17 @@
 package com.codechallenge.pwc.au.entities;
 
-public class AddressBook {
+public class Contact {
 
-    final FullName name;
+    final String name;
     final String phoneNumber;
 
-    public AddressBook(FullName name, String phoneNumber) {
+    public Contact(String name, String phoneNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
 
 
-    public FullName getName() {
+    public String getName() {
         return name;
     }
 

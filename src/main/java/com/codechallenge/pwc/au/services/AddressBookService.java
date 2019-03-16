@@ -5,6 +5,10 @@ import com.codechallenge.pwc.au.entities.Contact;
 import com.codechallenge.pwc.au.persistence.IDao;
 import com.codechallenge.pwc.au.utils.JsonUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.nio.file.Files;
 import java.util.Map;
 
 public class AddressBookService {
@@ -34,13 +38,17 @@ public class AddressBookService {
         } else {
             dao.add(existingContacts,contact);
         }
-        System.out.println(new JsonUtils().toJson(existingContacts));
+
     }
 
-    void displayAddressBook(){
-        getAddressBook();
-        //
+    public void displayAddressBook(){
+        for(Map.Entry<String, String> entry : getAddressBook().entrySet()) {
+            System.out.println(entry.getKey() +" "+ entry.getValue());
+        }
+    }
 
+    public void writeToCache(final File file, final String jsonContent) throws IOException {
+        dao.writeToDataStore(file, jsonContent);
     }
 
     public boolean contactNumberExists(Map<String,String> map, String key){
