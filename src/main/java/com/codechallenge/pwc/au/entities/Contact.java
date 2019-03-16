@@ -2,8 +2,10 @@ package com.codechallenge.pwc.au.entities;
 
 public class Contact {
 
-    final String name;
-    final String phoneNumber;
+    String name;
+    String phoneNumber;
+
+    public Contact(){}
 
     public Contact(String name, String phoneNumber) {
         this.name = name;

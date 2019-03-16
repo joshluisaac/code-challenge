@@ -29,13 +29,16 @@ public class AddressBookService {
         if (size > 0){
             if(contactNumberExists(existingContacts,contact.getName())){
                 dao.update(existingContacts,contact);
+                LOG.info("Updated existing contact");
             } else {
                 dao.add(existingContacts,contact);
+                LOG.info("Added new contact");
             }
         } else {
             dao.add(existingContacts,contact);
+            LOG.info("Added new contact");
         }
-        LOG.info("Saved contact");
+
     }
 
     public void displayAddressBook(){

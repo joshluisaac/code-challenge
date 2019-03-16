@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -66,12 +67,16 @@ public class AddressBookAppCLI {
 
 
     public static void main(String[] args) throws Exception {
+        boolean storageMode = false;
+        boolean unionMode = false;
 
         if (args[0].equalsIgnoreCase("-s") || args[0].equalsIgnoreCase("--store")){
             LOG.info("Running address book app in store mode");
+            storageMode = true;
 
         } else if (args[0].equalsIgnoreCase("-u") || args[0].equalsIgnoreCase("--union")) {
             LOG.info("Running address book app in union mode");
+
         } else if (args[0].equalsIgnoreCase("-h") || args[0].equalsIgnoreCase("--help")){
             displayUsage();
             return;
@@ -80,23 +85,32 @@ public class AddressBookAppCLI {
             return;
         }
 
-        Contact contact = new Contact("JoshuA", "0479109802");
+        if (storageMode) {
+            String contactName = args[1];
+            String contactNumber = args[2];
 
-        /*Deserialize the JSON file into Java objects*/
-        SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(ADDRESS_BOOK_DATA_BASE)), new TypeToken<SortedMap<String, String>>() {
-        }.getType());
+            Optional<Contact> maybeContact = Optional.of(new Contact(contactName.trim(), contactNumber.trim()));
+            Contact contact = maybeContact.orElse(new Contact());
 
-        SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
+            /*Deserialize the JSON file into Java objects*/
+            SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(ADDRESS_BOOK_DATA_BASE)), new TypeToken<SortedMap<String, String>>() {
+            }.getType());
 
-        for (SortedMap.Entry<String, String> entry : database.entrySet())
-            existingContacts.put(entry.getKey(), entry.getValue());
+            SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
 
-        AddressBookAppCLI cli = new AddressBookAppCLI(new AddressBookService(new AddressBookDao(), new AddressBook(existingContacts)));
-        cli.execute(contact);
+            for (SortedMap.Entry<String, String> entry : database.entrySet())
+                existingContacts.put(entry.getKey(), entry.getValue());
 
-        cli.displayAddressBook();
+            AddressBookAppCLI cli = new AddressBookAppCLI(new AddressBookService(new AddressBookDao(), new AddressBook(existingContacts)));
 
-        cli.writeToCache(new File(ADDRESS_BOOK_DATA_BASE), new JsonUtils().toJson(cli.getAddressBook()));
+            cli.execute(contact);
+
+            cli.displayAddressBook();
+
+            cli.writeToCache(new File(ADDRESS_BOOK_DATA_BASE), new JsonUtils().toJson(cli.getAddressBook()));
+        }
+
+
 
 
     }
