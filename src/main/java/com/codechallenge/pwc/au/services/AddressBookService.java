@@ -43,6 +43,8 @@ public class AddressBookService {
             dao.add(existingContacts,contact);
         }
 
+        LOG.info("Saved contact");
+
     }
 
     public void displayAddressBook(){
