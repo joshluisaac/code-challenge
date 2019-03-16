@@ -48,7 +48,7 @@ public class AddressBookAppCLI {
         //Contact contact = new Contact("Joshua","0479109809");
         //Contact contact = new Contact("Zoe","0479109800");
         //Contact contact3 = new Contact("Jeff","0479109801");
-        Contact contact4 = new Contact("JoshuA","0479109802");
+        Contact contact = new Contact("JoshuA","0479109802");
 
         /*Deserialize the JSON file into Java objects*/
         SortedMap<String,String> database = new JsonUtils().fromJson(new FileReader(new File(ADDRESS_BOOK_DATA_BASE)), new TypeToken<SortedMap<String,String>>(){}.getType());
