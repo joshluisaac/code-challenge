@@ -6,6 +6,8 @@ import com.codechallenge.pwc.au.persistence.AddressBookDao;
 import com.codechallenge.pwc.au.services.AddressBookService;
 import com.codechallenge.pwc.au.utils.JsonUtils;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +17,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class AddressBookAppCLI {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AddressBookAppCLI.class);
 
     private final AddressBookService addressBookService;
 
@@ -56,8 +60,25 @@ public class AddressBookAppCLI {
         return addressBookService.getAddressBook();
     }
 
+    public static void displayUsage(){
+
+    }
+
 
     public static void main(String[] args) throws Exception {
+
+        if (args[0].equalsIgnoreCase("-s") || args[0].equalsIgnoreCase("--store")){
+            LOG.info("Running address book app in store mode");
+
+        } else if (args[0].equalsIgnoreCase("-u") || args[0].equalsIgnoreCase("--union")) {
+            LOG.info("Running address book app in union mode");
+        } else if (args[0].equalsIgnoreCase("-h") || args[0].equalsIgnoreCase("--help")){
+            displayUsage();
+            return;
+        } else {
+            displayUsage();
+            return;
+        }
 
         Contact contact = new Contact("JoshuA", "0479109802");
 
