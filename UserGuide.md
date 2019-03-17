@@ -48,7 +48,7 @@ java -jar target/code-challenge-0.0.1-SNAPSHOT.jar --store Jenny 0776447883
 Please note the following about the above command
 The raw input passed in from command line is first parsed and validated by the [InputValidationParser](src/main/java/com/codechallenge/pwc/au/components/InputValidationParser.java).
 >> 1. `--store Jenny 0776447883`  is space separated.
->> 2. `0776447883` contact numbers can only contain numeric digits. That is, anything within this bounds {0-9}. Anything outside this bounds would throw a xxxException
+>> 2. `0776447883` contact numbers can only contain numeric digits. That is, anything within this regex bounds `^[0-9]+$`. Anything outside this bounds would throw a xxxException
 
 
 
