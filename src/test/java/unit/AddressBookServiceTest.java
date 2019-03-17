@@ -13,6 +13,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ * Unit test for AddressBookService
+ */
 public class AddressBookServiceTest {
 
     /* dependencies */
