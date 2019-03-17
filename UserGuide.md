@@ -5,6 +5,7 @@ This is the __user guide document__ which is part of the code challenge delivera
 deliverables are also provided. This includes the following:
 
 1. Bill of materials (BOM) document.
+1. Class hierarchy, scope and purpose.
 1. Functionality
 2. Spefic...
 
