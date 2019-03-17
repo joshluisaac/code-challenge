@@ -5,13 +5,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * This class takes two address books and resolves the uniqueness between them
+ * An implementation of {@link IAddressBookUnionService} that
+ * takes two address books and resolves the uniqueness between them.
  */
 public class AddressBookUnionService implements IAddressBookUnionService {
 
 
     /**
-     * Takes two {@link Map} and resolves the difference between them of strings and removes duplicate elements in that list
+     * Takes two {@link Map} and resolves the difference between them resulting in a unique map.
      *
      * @param addressBook1 address book 1
      * @param addressBook2 address book 2
