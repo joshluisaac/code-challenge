@@ -3,6 +3,7 @@ package com.codechallenge.pwc.au;
 import com.codechallenge.pwc.au.components.InputValidationParser;
 import com.codechallenge.pwc.au.entities.AddressBook;
 import com.codechallenge.pwc.au.entities.Contact;
+import com.codechallenge.pwc.au.exceptions.InvalidPhoneNumberException;
 import com.codechallenge.pwc.au.persistence.AddressBookDao;
 import com.codechallenge.pwc.au.persistence.IDao;
 import com.codechallenge.pwc.au.services.AddressBookService;
@@ -20,10 +21,18 @@ import java.util.Optional;
 import java.util.SortedMap;
 
 
+/**
+ * This is the main class for using AddressBookAppCLI and serves as the application entry point.
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
+
+
 public class AddressBookAppCLI {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddressBookAppCLI.class);
-
     private final AddressBookService addressBookService;
     private final IAddressBookUnionService unionService;
 
@@ -114,18 +123,25 @@ public class AddressBookAppCLI {
             String contactName = args[1];
             String contactNumber = args[2];
 
-            Optional<Contact> maybeContact = Optional.of(new Contact(contactName.trim(), contactNumber.trim()));
-            Contact contact = maybeContact.orElse(new Contact());
+            boolean isValidPhoneNo = InputValidationParser.isValidPhoneNumber(contactNumber);
+            if (isValidPhoneNo) {
+                Optional<Contact> maybeContact = Optional.of(new Contact(contactName.trim(), contactNumber.trim()));
+                Contact contact = maybeContact.orElse(new Contact());
 
-            IDao dataAccess = new AddressBookDao();
-            AddressBook addressBook = new AddressBook();
-            AddressBookService service = new AddressBookService(dataAccess, addressBook);
-            IAddressBookUnionService unionService = new AddressBookUnionService();
-            AddressBookAppCLI cli = new AddressBookAppCLI(service,unionService);
+                IDao dataAccess = new AddressBookDao();
+                AddressBook addressBook = new AddressBook();
+                AddressBookService service = new AddressBookService(dataAccess, addressBook);
+                IAddressBookUnionService unionService = new AddressBookUnionService();
+                AddressBookAppCLI cli = new AddressBookAppCLI(service,unionService);
 
-            cli.execute(contact);
-            cli.displayAddressBook();
-            cli.writeToCache(new File(addressBook.getBookName()), new JsonUtils().toJson(cli.getAddressBook()));
+                cli.execute(contact);
+                cli.displayAddressBook();
+                cli.writeToCache(new File(addressBook.getBookName()), new JsonUtils().toJson(cli.getAddressBook()));
+            } else {
+                LOG.error("{} is not a valid phone number.", contactNumber);
+                throw new InvalidPhoneNumberException("Phone number is invalid. Please check it contains only numbers (0-9)");
+            }
+
         }
 
         else if (unionMode){
@@ -142,17 +158,9 @@ public class AddressBookAppCLI {
                 SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(),book2);
                 System.out.println(union.toString());
             } else {
-                LOG.error("{} is not a valid JSON", addressBook2RawInput);
+                LOG.error("{} is not a valid JSON formatted string.", addressBook2RawInput);
             }
-
-
-
-
         }
-
-
-
-
     }
 
 }
