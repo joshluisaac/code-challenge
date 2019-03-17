@@ -10,6 +10,10 @@ Please note that other deliverables are also provided. This includes the followi
 1. User guide document.
 1. Functionality test cases.
 
+## APIs and classes
+
+![Alt text][api_image]
+
 ## Package layout and structure
 
 ![Alt text][packagelayout]
@@ -35,3 +39,5 @@ Please note that other deliverables are also provided. This includes the followi
 
 
 [packagelayout]: package_layout.png "Logo Title Text 2"
+
+[api_image]: api_documentation.png "Logo Title Text 2"

@@ -55,6 +55,11 @@ public class AddressBookAppCLI {
     /**
      * A forwarding method which is a wrapper around {@link AddressBookService#writeToCache(File, String)}
      * Writes an address book to file on disk. This is done for reuse between successive runs.
+     *
+     * @param file cache file
+     * @param jsonContent json formatted document
+     *
+     * @throws IOException throws exception if file is not found
      */
     public void writeToCache(final File file, String jsonContent) throws IOException {
         addressBookService.writeToCache(file, jsonContent);
@@ -82,6 +87,9 @@ public class AddressBookAppCLI {
     /**
      * A forwarding method which is a wrapper around {@link AddressBookUnionService#union(Map, Map)}
      * Resolves the differences between two maps.
+     *
+     * @param book1 address book 1
+     * @param book2 address book 2
      *
      * @return a map which is what is unique between those two maps.
      */

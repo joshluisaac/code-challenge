@@ -9,17 +9,8 @@ following functionality:
    by their name.
 1. Given another address book that may or may not contain the same friends, display the
    list of friends that are unique to each address book (the union of all the relative
-   complements). For example given:
+   complements).
 
-   ```
-   Book1 = { “Bob”, “Mary”, “Jane” }
-   Book2 = { “Mary”, “John”, “Jane” }
-   ```
-   The friends that are unique to each address book are:
-
-   ```
-   Book1 \ Book2 = { “Bob”, “John” }
-   ```
 
 What is included?
 ------------------------
@@ -50,11 +41,32 @@ java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --store Joshua 0479109809
 java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --union "{Jenny:098765667,Asha:908654}"
 ```
 
+Executing the above command will produce the following output
+
+```
+$ java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --store Joshua 0479109809
+2019-03-15 21:23:14,358 INFO  Running address book app in store mode
+2019-03-15 21:23:14,416 INFO  Added new contact Contact{name='Joshua', phoneNumber='0479109809'}
+2019-03-15 21:23:14,416 INFO  Displaying contact numbers ordered by name.
+Joshua 0479109809
+```
+
+and the union between two books will produce
+
+```
+$ java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --union "{Jenny:098765667,Asha:908654}"
+2019-03-15 22:00:28,783 INFO  Running address book app in union mode
+2019-03-15 22:00:28,842 INFO  Displaying unique entries
+Book 1/Book 2: {Adam=04897654367, Asha=908654, Joshua=0479109809, Zoe=09864567}
+
+```
+
+
 Detailed instruction on how to execute and use this application can be found in User Guide Document.
 
 
-Building the docs
--------------------
+Building the API docs
+---------------------
 
 Execute the command below to build API javadoc from the source code.
 
