@@ -1,15 +1,14 @@
 User Guide Document.
 ==========================
 
-This is the __user guide document__ which is part of the code challenge deliverables. Please note that other
-deliverables are also provided. This includes the following deliverables:
+This is the __user guide document__ which is part of the code challenge deliverables.
+
+Please note that other deliverables are also provided. This includes the following deliverables:
 
 1. Bill of materials (BOM) document.
 1. API documentation.
-1. Class hierarchy, scope and purpose.
-1. Test cases.
-1. Functionality
-2. Spefic...
+1. Class hierarchy, scope and purpose document.
+1. Functionality test cases
 
 # Executing the app
 

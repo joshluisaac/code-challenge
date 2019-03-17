@@ -34,6 +34,7 @@ public class InputValidationParser {
             isValid = true;
         } catch (JsonSyntaxException ex) {
             LOG.error("{} is not a valid JSON formatted string.", maybeJson);
+            throw new JsonSyntaxException("Not a valid JSON");
 
         }
         return isValid;
