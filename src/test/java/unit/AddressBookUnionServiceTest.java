@@ -16,7 +16,8 @@ import java.util.TreeMap;
  */
 public class AddressBookUnionServiceTest {
 
-    IAddressBookUnionService service;
+    /* dependencies */
+    private IAddressBookUnionService service;
 
     @Before
     public void run_once_per_test() {
@@ -27,7 +28,7 @@ public class AddressBookUnionServiceTest {
     @Test
     public void given_address_book_union_should_produce_unique_map() {
 
-        //given two address books
+        /* given two address books */
         Map<String, String> book1 = new TreeMap<>(String::compareToIgnoreCase);
         book1.put("Joshua", "0479109809");
         book1.put("Zoe", "0479109801");
@@ -39,10 +40,10 @@ public class AddressBookUnionServiceTest {
         book2.put("Edith", "0479109802");
         book2.put("Jordan", "0479109804");
 
-        //the union of these books (book 1 and book 2)
+        /* the union of these books (book 1 and book 2) */
         SortedMap<String, String> result = service.union(book1, book2);
 
-        //expectation and assertion
+        /* expectation and assertion */
         Assert.assertThat(result.toString(), CoreMatchers.is("{Jordan=0479109804, Roxanne=0479109801, Zoe=0479109801}"));
 
     }

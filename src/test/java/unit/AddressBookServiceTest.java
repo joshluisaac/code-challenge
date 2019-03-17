@@ -15,9 +15,10 @@ import java.io.IOException;
 
 public class AddressBookServiceTest {
 
+    /* dependencies */
     private IDao dao;
     private AddressBook addressBook;
-    IAddressBookService service;
+    private IAddressBookService service;
 
     @Before
     public void run_once_per_test() throws Exception {
