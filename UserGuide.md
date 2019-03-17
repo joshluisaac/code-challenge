@@ -1,14 +1,21 @@
 User Guide Document.
 ==========================
 
-This is the user guide document which is part of the code challenge deliverables. Please note that other
+This is the __user guide document__ which is part of the code challenge deliverables. Please note that other
 deliverables are also provided. This includes the following:
 
+1. Bill of materials (BOM) document.
 1. Functionality
 2. Spefic...
 
 
+The application can be executed in one of two modes depending on the flag which was passed in.
+These modes are controlled by certain flags.
 
+`-s or --store` : Indicates that you want to run the program in storage mode. In storage mode, the name and phone number is
+persisted to `book.json`. This serves as a persistent database object which is then used for successive runs.
+
+`-u or --union`
 
 Executing the app in storage mode
 ---------------------------------
@@ -36,4 +43,16 @@ or
 
 ```bash
 java -jar target/code-challenge-0.0.1-SNAPSHOT.jar --store Jenny 0776447883
+```
+
+Please note the following about the above command
+>> 1. `--store Jenny 0776447883`  is space separated.
+>> 2. `0776447883` contact numbers can only contain numeric digits. That is, {0-9}
+
+
+
+Executing any of the above command will yield the following logs written to terminal
+
+```
+
 ```
