@@ -2,13 +2,16 @@ User Guide Document.
 ==========================
 
 This is the __user guide document__ which is part of the code challenge deliverables. Please note that other
-deliverables are also provided. This includes the following:
+deliverables are also provided. This includes the following deliverables:
 
 1. Bill of materials (BOM) document.
+1. API documentation.
 1. Class hierarchy, scope and purpose.
+1. Test cases.
 1. Functionality
 2. Spefic...
 
+# Executing the app
 
 The application can be executed in one of two modes depending on the flag which was passed in.
 These modes are controlled by certain flags.
@@ -19,7 +22,8 @@ persisted to `book.json`. This serves as a persistent database object which is t
 `-u or --union`
 
 Executing the app in storage mode
----------------------------------
+-----------------------------------
+
 __Execution syntax__
 
 `java <-classpath|-cp> [-s] <contact name> <contact number>`

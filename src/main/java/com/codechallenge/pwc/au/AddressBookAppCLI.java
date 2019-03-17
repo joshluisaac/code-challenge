@@ -45,6 +45,8 @@ public class AddressBookAppCLI {
     /**
      * A forwarding method which is a wrapper around {@link AddressBookService#saveContact(Contact)}
      * This executes the service business logic persists a newly added contact to memory pending writes to data store.
+     *
+     * @param contact the new/existing contact object
      */
     public void execute(final Contact contact) {
         addressBookService.saveContact(contact);

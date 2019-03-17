@@ -30,6 +30,11 @@ public class AddressBookService implements IAddressBookService {
         this.addressBook = addressBook;
     }
 
+    /**
+     * Saves a contact to a temporary cache pending writes to database.
+     *
+     * @param contact the new/existing contact object
+     */
     @Override
     public void saveContact(final Contact contact) {
         Map<String,String> existingContacts = getAddressBook();
@@ -48,6 +53,10 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    /**
+     * Display the list of contacts and their corresponding phone numbers sorted
+     * by their name in ascending order.
+     */
     @Override
     public void displayAddressBook(){
         LOG.info("Displaying contact numbers ordered by name.");
@@ -61,7 +70,7 @@ public class AddressBookService implements IAddressBookService {
         dao.writeToDataStore(file, jsonContent);
     }
 
-    public boolean contactNumberExists(Map<String,String> map, String key){
+    private boolean contactNumberExists(Map<String,String> map, String key){
         return map.containsKey(key);
     }
 

@@ -47,11 +47,15 @@ public class AddressBookServiceTest {
 
     @Test
     public void cache_should_not_increase_when_i_add_an_existing_contact() throws IOException {
-        /* initial size of cache */
-        int initialSize = addressBook.getContacts().size();
 
         /* given a contact */
-        Contact contact = new Contact("Joshua", "0479109809");
+        Contact contact = new Contact("Simeon", "0479109809");
+
+        /* when i save the contact */
+        service.saveContact(contact);
+
+        /* initial size of cache */
+        int initialSize = addressBook.getContacts().size();
 
         /* when i save the contact */
         service.saveContact(contact);
