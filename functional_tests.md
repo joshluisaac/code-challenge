@@ -20,7 +20,7 @@ This is the __Functionality test cases document__ which is part of the code chal
 
 | Test classes        | Purpose           |
 | ------------- |:-------------:|
-|`AddressBookAppCLITest`|Integration test for main class `AddressBookAppCLI`
+|`AddressBookAppCLITest`|Integration test using reflection for main class `AddressBookAppCLI`
 |`AddressBookServiceTest`|Unit test for `AddressBookService`
 |`AddressBookUnionServiceTest`| Unit test for `AddressBookUnionService`
 |`RegexUtilsTest`|Unit test for `RegexUtils`
