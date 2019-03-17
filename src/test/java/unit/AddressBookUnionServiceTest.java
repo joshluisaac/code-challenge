@@ -26,7 +26,7 @@ public class AddressBookUnionServiceTest {
 
 
     @Test
-    public void given_address_book_union_should_produce_unique_map() {
+    public void the_union_of_two_address_books_should_produce_unique_map() {
 
         /* given two address books */
         Map<String, String> book1 = new TreeMap<>(String::compareToIgnoreCase);
