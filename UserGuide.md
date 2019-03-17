@@ -36,19 +36,20 @@ __Argument definition__:
 `contact number`:
 
 ```bash
-java -cp config:target/code-challenge-0.0.1-SNAPSHOT.jar com.codechallenge.pwc.au.AddressBookAppCLI -s Jenny 09876548997
+java -cp config:dist/code-challenge-0.0.1-SNAPSHOT.jar com.codechallenge.pwc.au.AddressBookAppCLI -s Joshua 0479109809
 ```
 
 or
 
 ```bash
-java -jar target/code-challenge-0.0.1-SNAPSHOT.jar --store Jenny 0776447883
+java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --store Joshua 0479109809
 ```
 
 Please note the following about the above command
 The raw input passed in from command line is first parsed and validated by the [InputValidationParser](src/main/java/com/codechallenge/pwc/au/components/InputValidationParser.java).
 >> 1. `--store Jenny 0776447883`  is space separated.
->> 2. `0776447883` contact numbers can only contain numeric digits. That is, anything within this regex bounds `^[0-9]+$`. Anything outside this bounds would throw a xxxException
+>> 2. `0776447883` contact numbers can only contain numeric digits. That is, anything within this regex bounds `^[0-9]+$`.
+Anything outside this bounds would throw a [InvalidPhoneNumberException](src/main/java/com/codechallenge/pwc/au/exceptions/InvalidPhoneNumberException.java).
 
 
 

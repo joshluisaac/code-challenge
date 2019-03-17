@@ -139,7 +139,7 @@ public class AddressBookAppCLI {
                 cli.writeToCache(new File(addressBook.getBookName()), new JsonUtils().toJson(cli.getAddressBook()));
             } else {
                 LOG.error("{} is not a valid phone number.", contactNumber);
-                throw new InvalidPhoneNumberException("Phone number is invalid. Please check it contains only numbers (0-9)");
+                throw new InvalidPhoneNumberException("Phone number is invalid. Please check phone number contains only numbers (0-9)");
             }
 
         }

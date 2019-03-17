@@ -20,4 +20,13 @@ public class Contact {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
 }
