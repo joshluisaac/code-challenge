@@ -4,6 +4,8 @@ import com.codechallenge.pwc.au.entities.AddressBook;
 import com.codechallenge.pwc.au.entities.Contact;
 import com.codechallenge.pwc.au.persistence.AddressBookDao;
 import com.codechallenge.pwc.au.services.AddressBookService;
+import com.codechallenge.pwc.au.services.AddressBookUnionService;
+import com.codechallenge.pwc.au.services.IAddressBookUnionService;
 import com.codechallenge.pwc.au.utils.JsonUtils;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -22,11 +24,13 @@ public class AddressBookAppCLI {
     private static final Logger LOG = LoggerFactory.getLogger(AddressBookAppCLI.class);
 
     private final AddressBookService addressBookService;
+    private final IAddressBookUnionService unionService;
 
     private static final String ADDRESS_BOOK_DATA_BASE = "book.json";
 
-    public AddressBookAppCLI(AddressBookService addressBookService) {
+    public AddressBookAppCLI(AddressBookService addressBookService,IAddressBookUnionService unionService) {
         this.addressBookService = addressBookService;
+        this.unionService = unionService;
     }
 
     /**
@@ -65,6 +69,20 @@ public class AddressBookAppCLI {
 
     }
 
+    /*Deserialize the JSON file into Java objects*/
+    public static SortedMap<String, String> getDatabase() throws IOException{
+        SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(ADDRESS_BOOK_DATA_BASE)), new TypeToken<TreeMap<String, String>>() {
+        }.getType());
+        SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
+        for (SortedMap.Entry<String, String> entry : database.entrySet())
+            existingContacts.put(entry.getKey(), entry.getValue());
+        return existingContacts;
+    }
+
+    public SortedMap<String, String> executeUnion(Map<String, String> book1, Map<String, String> book2){
+        return unionService.union(book1,book2);
+    }
+
 
     public static void main(String[] args) throws Exception {
         boolean storageMode = false;
@@ -76,6 +94,7 @@ public class AddressBookAppCLI {
 
         } else if (args[0].equalsIgnoreCase("-u") || args[0].equalsIgnoreCase("--union")) {
             LOG.info("Running address book app in union mode");
+            unionMode = true;
 
         } else if (args[0].equalsIgnoreCase("-h") || args[0].equalsIgnoreCase("--help")){
             displayUsage();
@@ -92,22 +111,20 @@ public class AddressBookAppCLI {
             Optional<Contact> maybeContact = Optional.of(new Contact(contactName.trim(), contactNumber.trim()));
             Contact contact = maybeContact.orElse(new Contact());
 
-            /*Deserialize the JSON file into Java objects*/
-            SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(ADDRESS_BOOK_DATA_BASE)), new TypeToken<SortedMap<String, String>>() {
-            }.getType());
-
-            SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
-
-            for (SortedMap.Entry<String, String> entry : database.entrySet())
-                existingContacts.put(entry.getKey(), entry.getValue());
-
-            AddressBookAppCLI cli = new AddressBookAppCLI(new AddressBookService(new AddressBookDao(), new AddressBook(existingContacts)));
+            AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(AddressBookAppCLI.getDatabase()));
+            IAddressBookUnionService unionService = new AddressBookUnionService();
+            AddressBookAppCLI cli = new AddressBookAppCLI(service,unionService);
 
             cli.execute(contact);
-
             cli.displayAddressBook();
-
             cli.writeToCache(new File(ADDRESS_BOOK_DATA_BASE), new JsonUtils().toJson(cli.getAddressBook()));
+        }
+
+        else if (unionMode){
+            String addressBook2RawInput = args[1];
+
+            SortedMap<String, String> book2 = new JsonUtils().fromJson(addressBook2RawInput, new TypeToken<SortedMap<String, String>>() {}.getType());
+
         }
 
 
