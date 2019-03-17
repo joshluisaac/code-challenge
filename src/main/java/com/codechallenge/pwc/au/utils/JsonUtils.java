@@ -5,7 +5,13 @@ import com.google.gson.Gson;
 import java.io.Reader;
 import java.lang.reflect.Type;
 
-
+/**
+ * A {@link Gson} wrapper class providing forwarding and helper methods for JSON utilities.
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
 public class JsonUtils {
 
     private Gson gson;

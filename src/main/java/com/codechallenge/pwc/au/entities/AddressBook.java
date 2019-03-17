@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 public class AddressBook {
 
-    public static final String ADDRESS_BOOK_DATA_BASE = "book.json";
+    public static final String DATABASE = "book.json";
 
     public Map<String,String> cache;
 
@@ -26,13 +26,13 @@ public class AddressBook {
     }
 
     public String getBookName(){
-        return ADDRESS_BOOK_DATA_BASE;
+        return DATABASE;
     }
 
 
     /*Deserialize the JSON file into Java objects*/
     private Map<String, String> readToCache() throws IOException {
-        SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(ADDRESS_BOOK_DATA_BASE)), new TypeToken<SortedMap<String, String>>() {
+        SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(DATABASE)), new TypeToken<SortedMap<String, String>>() {
         }.getType());
         SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
         for (SortedMap.Entry<String, String> entry : database.entrySet())
