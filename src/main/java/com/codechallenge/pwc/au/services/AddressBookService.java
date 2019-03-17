@@ -29,16 +29,15 @@ public class AddressBookService {
         if (size > 0){
             if(contactNumberExists(existingContacts,contact.getName())){
                 dao.update(existingContacts,contact);
-                LOG.info("Updated existing contact");
+                LOG.info("Updated existing contact {}",contact.toString());
             } else {
                 dao.add(existingContacts,contact);
-                LOG.info("Added new contact");
+                LOG.info("Added new contact {}",contact.toString());
             }
         } else {
             dao.add(existingContacts,contact);
-            LOG.info("Added new contact");
+            LOG.info("Added new contact {}",contact.toString());
         }
-
     }
 
     public void displayAddressBook(){
@@ -56,8 +55,15 @@ public class AddressBookService {
         return map.containsKey(key);
     }
 
+
     public Map<String,String> getAddressBook(){
-        return addressBook.getContacts();
+        Map<String,String> result = null;
+        try{
+            result = addressBook.getContacts();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return result;
     }
 
 

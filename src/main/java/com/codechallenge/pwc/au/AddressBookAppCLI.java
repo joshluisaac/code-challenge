@@ -1,8 +1,10 @@
 package com.codechallenge.pwc.au;
 
+import com.codechallenge.pwc.au.components.InputValidationParser;
 import com.codechallenge.pwc.au.entities.AddressBook;
 import com.codechallenge.pwc.au.entities.Contact;
 import com.codechallenge.pwc.au.persistence.AddressBookDao;
+import com.codechallenge.pwc.au.persistence.IDao;
 import com.codechallenge.pwc.au.services.AddressBookService;
 import com.codechallenge.pwc.au.services.AddressBookUnionService;
 import com.codechallenge.pwc.au.services.IAddressBookUnionService;
@@ -12,12 +14,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.SortedMap;
-import java.util.TreeMap;
+
 
 public class AddressBookAppCLI {
 
@@ -26,7 +27,6 @@ public class AddressBookAppCLI {
     private final AddressBookService addressBookService;
     private final IAddressBookUnionService unionService;
 
-    private static final String ADDRESS_BOOK_DATA_BASE = "book.json";
 
     public AddressBookAppCLI(AddressBookService addressBookService,IAddressBookUnionService unionService) {
         this.addressBookService = addressBookService;
@@ -60,27 +60,33 @@ public class AddressBookAppCLI {
     /**
      * A forwarding method which is a wrapper around {@link AddressBookService#getAddressBook()}
      * Retrieves an address book.
+     *
+     * @return the address book as a {@link Map}
      */
     public Map<String, String> getAddressBook() {
         return addressBookService.getAddressBook();
     }
 
-    public static void displayUsage(){
 
-    }
-
-    /*Deserialize the JSON file into Java objects*/
-    public static SortedMap<String, String> getDatabase() throws IOException{
-        SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(ADDRESS_BOOK_DATA_BASE)), new TypeToken<TreeMap<String, String>>() {
-        }.getType());
-        SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
-        for (SortedMap.Entry<String, String> entry : database.entrySet())
-            existingContacts.put(entry.getKey(), entry.getValue());
-        return existingContacts;
-    }
-
+    /**
+     * A forwarding method which is a wrapper around {@link AddressBookUnionService#union(Map, Map)}
+     * Resolves the differences between two maps.
+     *
+     * @return a map which is what is unique between those two maps.
+     */
     public SortedMap<String, String> executeUnion(Map<String, String> book1, Map<String, String> book2){
+        LOG.info("Displaying unique entries");
         return unionService.union(book1,book2);
+    }
+
+    public static void displayUsage(){
+        System.out.println("Usage instruction.");
+        System.out.println("-s, --store execute program in store mode.");
+        System.out.println("-u, --union execute program in union mode.");
+        System.out.println("In store contact mode execute: " + "java -jar <classpath>  [-s] <contact name> <contact number>");
+        System.out.println("In union mode execute: " + "java -jar <classpath>  [-u] {name:phoneNumber}");
+        System.out.println("Usage example: java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --store Jenny 0776447883");
+        System.out.println("Usage example: java -jar target/code-challenge-0.0.1-SNAPSHOT.jar --union \"{Jenny:098765667,Asha:908654}\"\n");
     }
 
 
@@ -111,19 +117,36 @@ public class AddressBookAppCLI {
             Optional<Contact> maybeContact = Optional.of(new Contact(contactName.trim(), contactNumber.trim()));
             Contact contact = maybeContact.orElse(new Contact());
 
-            AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(AddressBookAppCLI.getDatabase()));
+            IDao dataAccess = new AddressBookDao();
+            AddressBook addressBook = new AddressBook();
+            AddressBookService service = new AddressBookService(dataAccess, addressBook);
             IAddressBookUnionService unionService = new AddressBookUnionService();
             AddressBookAppCLI cli = new AddressBookAppCLI(service,unionService);
 
             cli.execute(contact);
             cli.displayAddressBook();
-            cli.writeToCache(new File(ADDRESS_BOOK_DATA_BASE), new JsonUtils().toJson(cli.getAddressBook()));
+            cli.writeToCache(new File(addressBook.getBookName()), new JsonUtils().toJson(cli.getAddressBook()));
         }
 
         else if (unionMode){
             String addressBook2RawInput = args[1];
 
-            SortedMap<String, String> book2 = new JsonUtils().fromJson(addressBook2RawInput, new TypeToken<SortedMap<String, String>>() {}.getType());
+            /*Parse and validate input string*/
+            boolean isValidJson = InputValidationParser.isValidJson(addressBook2RawInput);
+
+            if (isValidJson) {
+                SortedMap<String, String> book2 = new JsonUtils().fromJson(addressBook2RawInput, new TypeToken<SortedMap<String, String>>() {}.getType());
+                AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook());
+                IAddressBookUnionService unionService = new AddressBookUnionService();
+                AddressBookAppCLI cli = new AddressBookAppCLI(service,unionService);
+                SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(),book2);
+                System.out.println(union.toString());
+            } else {
+                LOG.error("{} is not a valid JSON", addressBook2RawInput);
+            }
+
+
+
 
         }
 
