@@ -4,7 +4,6 @@ import com.codechallenge.pwc.au.utils.JsonUtils;
 import com.codechallenge.pwc.au.utils.RegexUtils;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

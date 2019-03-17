@@ -1,5 +1,13 @@
 package com.codechallenge.pwc.au.entities;
 
+/**
+ * A POJO object representing contact details.
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
+
 public class Contact {
 
     String name;

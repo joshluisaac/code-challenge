@@ -11,6 +11,15 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+
+/**
+ * A POJO object representing the address book.
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
+
 public class AddressBook {
 
     public static final String DATABASE = "book.json";
