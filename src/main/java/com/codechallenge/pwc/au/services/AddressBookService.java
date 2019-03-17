@@ -10,11 +10,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class AddressBookService {
+/**
+ * An implementation of {@link IAddressBookService} that contains methods which
+ * perform operations with one or more models and transactions.
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
+
+public class AddressBookService implements IAddressBookService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddressBookService.class);
-
-
     private final IDao dao;
     private final AddressBook addressBook;
 
@@ -23,6 +30,7 @@ public class AddressBookService {
         this.addressBook = addressBook;
     }
 
+    @Override
     public void saveContact(final Contact contact) {
         Map<String,String> existingContacts = getAddressBook();
         int size = existingContacts.size();
@@ -40,6 +48,7 @@ public class AddressBookService {
         }
     }
 
+    @Override
     public void displayAddressBook(){
         LOG.info("Displaying contact numbers ordered by name.");
         for(Map.Entry<String, String> entry : getAddressBook().entrySet()) {
@@ -47,6 +56,7 @@ public class AddressBookService {
         }
     }
 
+    @Override
     public void writeToCache(final File file, final String jsonContent) throws IOException {
         dao.writeToDataStore(file, jsonContent);
     }

@@ -38,7 +38,7 @@ __Argument specification__:
 
 __Execution script__
 ```bash
-java -cp config:dist/code-challenge-0.0.1-SNAPSHOT.jar com.codechallenge.pwc.au.AddressBookAppCLI -s Joshua 0479109809
+java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar -s Joshua 0479109809
 ```
 
 or

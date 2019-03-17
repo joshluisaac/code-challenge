@@ -7,6 +7,10 @@ import java.util.TreeMap;
 /**
  * An implementation of {@link IAddressBookUnionService} that
  * takes two address books and resolves the uniqueness between them.
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
  */
 public class AddressBookUnionService implements IAddressBookUnionService {
 
