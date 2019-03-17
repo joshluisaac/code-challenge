@@ -21,11 +21,11 @@ Executing the app in storage mode
 ---------------------------------
 __Execution syntax__
 
-`java <classpath args> [-s] <contact name> <contact number>`
+`java <-classpath|-cp> [-s] <contact name> <contact number>`
 
 or
 
-`java <classpath args> [--store] <contact name> <contact number>`
+`java <-classpath|-cp> [--store] <contact name> <contact number>`
 
 __Argument definition__:
 
@@ -36,7 +36,7 @@ __Argument definition__:
 `contact number`:
 
 ```bash
-java -classpath config:target/code-challenge-0.0.1-SNAPSHOT.jar com.codechallenge.pwc.au.AddressBookAppCLI -s sam 09876548997
+java -cp config:target/code-challenge-0.0.1-SNAPSHOT.jar com.codechallenge.pwc.au.AddressBookAppCLI -s Jenny 09876548997
 ```
 
 or
@@ -46,8 +46,9 @@ java -jar target/code-challenge-0.0.1-SNAPSHOT.jar --store Jenny 0776447883
 ```
 
 Please note the following about the above command
+The raw input passed in from command line is first parsed and validated by the [InputValidationParser](src/main/java/com/codechallenge/pwc/au/components/InputValidationParser.java).
 >> 1. `--store Jenny 0776447883`  is space separated.
->> 2. `0776447883` contact numbers can only contain numeric digits. That is, {0-9}
+>> 2. `0776447883` contact numbers can only contain numeric digits. That is, anything within this bounds {0-9}. Anything outside this bounds would throw a xxxException
 
 
 
