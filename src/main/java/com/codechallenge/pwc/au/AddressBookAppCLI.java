@@ -156,7 +156,7 @@ public class AddressBookAppCLI {
                 IAddressBookUnionService unionService = new AddressBookUnionService();
                 AddressBookAppCLI cli = new AddressBookAppCLI(service,unionService);
                 SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(),book2);
-                System.out.println(union.toString());
+                System.out.println("Book 1/Book 2: " + union.toString());
             } else {
                 LOG.error("{} is not a valid JSON formatted string.", addressBook2RawInput);
             }
