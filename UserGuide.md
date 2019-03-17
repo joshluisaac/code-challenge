@@ -99,13 +99,13 @@ __Execution syntax__
 __Execution script__
 
 ```bash
-java -jar target/code-challenge-0.0.1-SNAPSHOT.jar --union "{Jenny:098765667,Asha:908654}"
+java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --union "{Jenny:098765667,Asha:908654}"
 ```
 
 or
 
 ```bash
-java -jar target/code-challenge-0.0.1-SNAPSHOT.jar -u "{Jenny:098765667,Asha:908654}"
+java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar -u "{Jenny:098765667,Asha:908654}"
 ```
 
 __Argument specification__:
@@ -125,7 +125,7 @@ The raw input passed in from command line is first parsed and validated by the [
 You will see the following logged to terminal on successful execution.
 
 ```
-$ java -jar target/code-challenge-0.0.1-SNAPSHOT.jar --union "{Jenny:098765667,Asha:908654}"
+$ java -jar dist/code-challenge-0.0.1-SNAPSHOT.jar --union "{Jenny:098765667,Asha:908654}"
 2019-03-15 22:00:28,783 INFO  Running address book app in union mode
 2019-03-15 22:00:28,842 INFO  Displaying unique entries
 Book 1/Book 2: {Adam=04897654367, Asha=908654, Joshua=0479109809, Zoe=09864567}
