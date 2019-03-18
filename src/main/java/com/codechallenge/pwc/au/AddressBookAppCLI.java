@@ -169,14 +169,9 @@ public class AddressBookAppCLI {
                 SortedMap<String, String> book2 = new JsonUtils().fromJson(addressBook2RawInput,
                         new TypeToken<SortedMap<String, String>>() {
                         }.getType());
-
                 SortedMap<String, String> newBook2 = new TreeMap<>(String::compareToIgnoreCase);
-
-                for (SortedMap.Entry<String, String> entry : book2.entrySet()) {
+                for (SortedMap.Entry<String, String> entry : book2.entrySet())
                     newBook2.put(entry.getKey(), entry.getValue());
-
-                }
-
                 AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook());
                 IAddressBookUnionService unionService = new AddressBookUnionService();
                 AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
