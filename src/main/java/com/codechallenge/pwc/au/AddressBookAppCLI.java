@@ -10,6 +10,7 @@ import com.codechallenge.pwc.au.services.AddressBookService;
 import com.codechallenge.pwc.au.services.AddressBookUnionService;
 import com.codechallenge.pwc.au.services.IAddressBookUnionService;
 import com.codechallenge.pwc.au.utils.JsonUtils;
+import com.codechallenge.pwc.au.utils.MapperUtils;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,6 +102,8 @@ public class AddressBookAppCLI {
         return unionService.union(book1, book2);
     }
 
+
+
     public static void displayUsage() {
         System.out.println("Usage instruction.");
         System.out.println("-s, --store execute program in store mode.");
@@ -116,6 +119,11 @@ public class AddressBookAppCLI {
     public static void main(String[] args) throws Exception {
         boolean storageMode = false;
         boolean unionMode = false;
+
+        if(args.length == 0) {
+            displayUsage();
+            return;
+        }
 
         if (args[0].equalsIgnoreCase("-s") || args[0].equalsIgnoreCase("--store")) {
             LOG.info("Running address book app in store mode");
@@ -166,16 +174,10 @@ public class AddressBookAppCLI {
             boolean isValidJson = InputValidationParser.isValidJson(addressBook2RawInput);
 
             if (isValidJson) {
-                SortedMap<String, String> book2 = new JsonUtils().fromJson(addressBook2RawInput,
-                        new TypeToken<SortedMap<String, String>>() {
-                        }.getType());
-                SortedMap<String, String> newBook2 = new TreeMap<>(String::compareToIgnoreCase);
-                for (SortedMap.Entry<String, String> entry : book2.entrySet())
-                    newBook2.put(entry.getKey(), entry.getValue());
                 AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook());
                 IAddressBookUnionService unionService = new AddressBookUnionService();
                 AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
-                SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(), newBook2);
+                SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(), MapperUtils.remapBook2(addressBook2RawInput));
                 System.out.println("Book 1/Book 2: " + union.toString());
             } else {
                 LOG.error("{} is not a valid JSON formatted string.", addressBook2RawInput);
