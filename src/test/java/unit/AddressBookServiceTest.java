@@ -1,6 +1,8 @@
 package unit;
 
+import com.codechallenge.pwc.au.components.LocalStorageStreamStrategy;
 import com.codechallenge.pwc.au.entities.AddressBook;
+import com.codechallenge.pwc.au.entities.AddressBookDatabase;
 import com.codechallenge.pwc.au.entities.Contact;
 import com.codechallenge.pwc.au.persistence.AddressBookDao;
 import com.codechallenge.pwc.au.persistence.IDao;
@@ -11,7 +13,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Unit test for AddressBookService
@@ -25,8 +30,9 @@ public class AddressBookServiceTest {
 
     @Before
     public void run_once_per_test() throws Exception {
+        InputStream inputStream = new FileInputStream(new File(AddressBookDatabase.DATABASE));
         dao = new AddressBookDao();
-        addressBook = new AddressBook();
+        addressBook = new AddressBook(new LocalStorageStreamStrategy(inputStream));
         service = new AddressBookService(dao,addressBook);
     }
 

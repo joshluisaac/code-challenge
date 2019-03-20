@@ -4,12 +4,9 @@ package com.codechallenge.pwc.au.aws;
 //com.codechallenge.pwc.au.aws.ApiGatewayAddressBookMicroService::handleRequest
 
 
-
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
@@ -18,23 +15,28 @@ import com.codechallenge.pwc.au.aws.apigateway.JsonPayload;
 import com.codechallenge.pwc.au.aws.apigateway.LambdaRequest;
 import com.codechallenge.pwc.au.aws.apigateway.LambdaResponse;
 import com.codechallenge.pwc.au.components.InputValidationParser;
+import com.codechallenge.pwc.au.components.S3ReadObjectStreamStrategy;
 import com.codechallenge.pwc.au.entities.AddressBook;
-import com.codechallenge.pwc.au.entities.Contact;
 import com.codechallenge.pwc.au.persistence.AddressBookDao;
 import com.codechallenge.pwc.au.services.AddressBookService;
 import com.codechallenge.pwc.au.services.AddressBookUnionService;
 import com.codechallenge.pwc.au.services.IAddressBookUnionService;
 import com.codechallenge.pwc.au.utils.MapperUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.SortedMap;
-import java.util.TreeMap;
 
 public class ApiGatewayAddressBookMicroService implements RequestHandler<LambdaRequest, String> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ApiGatewayAddressBookMicroService.class);
+
 
     @Override
     public String handleRequest(LambdaRequest request, Context context) {
@@ -42,12 +44,14 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<LambdaR
         final String httpMethod =  request.getHttpMethod();
         LambdaResponse response = new LambdaResponse();
 
+
         if (httpMethod.equals("GET")) {
             context.getLogger().log("Processing get request");
-            readFile(getS3Client(),context);
-            replaceFile(getS3Client(),context);
+            final String responseBody = fetchObjectContents(getS3Client());
+            response.setResponseBody(responseBody);
+            response.setHttpStatusCode(HttpStatus.SC_OK);
         } else if (httpMethod.equals("POST")) {
-            context.getLogger().log("Handling post request");
+            LOG.info("PWC_API_GW_INFO: Handling post request");
 
             //fetch JSON payload
             JsonPayload jsonPayload = request.getJsonPayload();
@@ -59,36 +63,36 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<LambdaR
             boolean isValidJson = InputValidationParser.isValidJson(requestData);
 
             if (isValidJson) {
-                handlePost(requestData);
+                final String responseBody = handlePost(requestData);
+                response.setResponseBody(responseBody);
+                response.setHttpStatusCode(HttpStatus.SC_OK);
             } else {
                 final String errMsg = MessageFormat.format("{0} is not a valid JSON formatted string.", requestData);
                 context.getLogger().log(errMsg);
+                LOG.error("PWC_API_GW_ERROR: {} is not a valid JSON",requestData);
             }
 
         }
-
-
-        return request.toString();
+        return response.toString();
     }
 
 
 
 
-    public void handlePost(final String postData){
-
+    public String handlePost(final String postData){
+        String result = null;
         try {
-            AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook());
+            AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(new S3ReadObjectStreamStrategy(readObject(getS3Client()))));
             IAddressBookUnionService unionService = new AddressBookUnionService();
             AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
             SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(), MapperUtils.remapBook2(postData));
-            System.out.println("Book 1/Book 2: " + union.toString());
-
+            result = union.toString();
+            System.out.println("Book 1/Book 2: " + result);
+            return result;
         } catch (IOException ex) {
             System.out.println("Error occurred when parsing JSON payload");
         }
-
-
-
+        return result;
     }
 
     void handleGet(){
@@ -101,33 +105,26 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<LambdaR
     }
 
 
-    void readFile(AmazonS3 s3Client, Context ctx){
-
-        S3Object fullObject = null;
-
-        System.out.println("Downloading an object");
-        fullObject = s3Client.getObject(new GetObjectRequest(Constants.BUCKET_NAME, Constants.KEY));
-        System.out.println("Content-Type: " + fullObject.getObjectMetadata().getContentType());
-        System.out.println("Content: ");
-        InputStream input = fullObject.getObjectContent();
-
+    public String fetchObjectContents(AmazonS3 s3Client){
         try{
-            System.out.println(IOUtils.toString(input, StandardCharsets.UTF_8));
-            ctx.getLogger().log(IOUtils.toString(input, StandardCharsets.UTF_8));
+            return IOUtils.toString(readObject(s3Client), StandardCharsets.UTF_8);
         } catch (IOException ex) {
-            ctx.getLogger().log("Error logged");
-            System.out.println("Error occurred");
-
+            LOG.error("Error occurred");
         }
+        return null;
+    }
 
 
-
-
+    public InputStream readObject(AmazonS3 s3Client){
+        S3Object fullObject = null;
+        fullObject = s3Client.getObject(new GetObjectRequest(Constants.BUCKET_NAME, Constants.KEY));
+        return fullObject.getObjectContent();
     }
 
 
     void replaceFile(AmazonS3 s3Client, Context ctx){
-        s3Client.putObject(Constants.BUCKET_NAME,Constants.KEY,"{Josh:5667778,Ada:5678788}");
+        String x = "{\"Adam\":\"04897654367\",\"James\":\"98765445667\",\"Jenny\":\"1890876\",\"Joshua\":\"0479109809456\",\"Lucas\":\"19087658783\",\"Zoe\":\"09864567\"}";
+        s3Client.putObject(Constants.BUCKET_NAME,Constants.KEY,x);
 
     }
 

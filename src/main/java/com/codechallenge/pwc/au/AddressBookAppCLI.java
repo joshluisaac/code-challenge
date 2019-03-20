@@ -1,7 +1,9 @@
 package com.codechallenge.pwc.au;
 
 import com.codechallenge.pwc.au.components.InputValidationParser;
+import com.codechallenge.pwc.au.components.LocalStorageStreamStrategy;
 import com.codechallenge.pwc.au.entities.AddressBook;
+import com.codechallenge.pwc.au.entities.AddressBookDatabase;
 import com.codechallenge.pwc.au.entities.Contact;
 import com.codechallenge.pwc.au.exceptions.InvalidPhoneNumberException;
 import com.codechallenge.pwc.au.persistence.AddressBookDao;
@@ -16,7 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Optional;
 import java.util.SortedMap;
@@ -151,14 +155,15 @@ public class AddressBookAppCLI {
                 Contact contact = maybeContact.orElse(new Contact());
 
                 IDao dataAccess = new AddressBookDao();
-                AddressBook addressBook = new AddressBook();
+                InputStream inputStream = new FileInputStream(new File(AddressBookDatabase.DATABASE));
+                AddressBook addressBook = new AddressBook(new LocalStorageStreamStrategy(inputStream));
                 AddressBookService service = new AddressBookService(dataAccess, addressBook);
                 IAddressBookUnionService unionService = new AddressBookUnionService();
                 AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
 
                 cli.execute(contact);
                 cli.displayAddressBook();
-                cli.writeToCache(new File(addressBook.getBookName()), new JsonUtils().toJson(cli.getAddressBook()));
+                cli.writeToCache(new File(AddressBookDatabase.DATABASE), new JsonUtils().toJson(cli.getAddressBook()));
             } else {
                 LOG.error("{} is not a valid phone number.", contactNumber);
                 throw new InvalidPhoneNumberException(
@@ -174,7 +179,8 @@ public class AddressBookAppCLI {
             boolean isValidJson = InputValidationParser.isValidJson(addressBook2RawInput);
 
             if (isValidJson) {
-                AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook());
+                InputStream inputStream = new FileInputStream(new File(AddressBookDatabase.DATABASE));
+                AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(new LocalStorageStreamStrategy(inputStream)));
                 IAddressBookUnionService unionService = new AddressBookUnionService();
                 AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
                 SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(), MapperUtils.remapBook2(addressBook2RawInput));

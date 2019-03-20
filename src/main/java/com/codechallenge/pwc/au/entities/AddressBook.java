@@ -1,9 +1,11 @@
 package com.codechallenge.pwc.au.entities;
 
+import com.codechallenge.pwc.au.components.StreamStrategy;
 import com.codechallenge.pwc.au.utils.JsonUtils;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -20,11 +22,12 @@ import java.util.TreeMap;
 
 public class AddressBook {
 
-    public static final String DATABASE = "book.json";
-
+    //public static final String DATABASE = "book.json";
     public Map<String,String> cache;
+    public StreamStrategy streamStrategy;
 
-    public AddressBook() throws IOException{
+    public AddressBook(StreamStrategy streamStrategy) throws IOException{
+        this.streamStrategy = streamStrategy;
         this.cache = readToCache();
     }
 
@@ -32,14 +35,14 @@ public class AddressBook {
         return cache;
     }
 
-    public String getBookName(){
-        return DATABASE;
+    public void setCache(Map<String, String> cache) {
+        this.cache = cache;
     }
 
 
     /*Deserialize the JSON file into Java objects*/
     private Map<String, String> readToCache() throws IOException {
-        SortedMap<String, String> database = new JsonUtils().fromJson(new FileReader(new File(DATABASE)), new TypeToken<SortedMap<String, String>>() {
+        SortedMap<String, String> database = new JsonUtils().fromJson(new InputStreamReader(streamStrategy.getInputStream(), StandardCharsets.UTF_8), new TypeToken<SortedMap<String, String>>() {
         }.getType());
         SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
         for (SortedMap.Entry<String, String> entry : database.entrySet())

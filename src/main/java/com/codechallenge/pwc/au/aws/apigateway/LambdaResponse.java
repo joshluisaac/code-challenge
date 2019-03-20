@@ -4,27 +4,32 @@ import com.codechallenge.pwc.au.entities.Contact;
 
 public class LambdaResponse {
 
-    private String httpMethod;
-    private Contact contact;
+    private int httpStatusCode;
+    private String responseBody;
 
 
-    public String getHttpMethod() {
-        return httpMethod;
+    public int getHttpStatusCode() {
+        return httpStatusCode;
     }
 
-    public void setHttpMethod(String httpMethod) {
-        this.httpMethod = httpMethod;
+    public void setHttpStatusCode(int httpStatusCode) {
+        this.httpStatusCode = httpStatusCode;
     }
 
-    public Contact getContact() {
-        return contact;
+    public String getResponseBody() {
+        return responseBody;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setResponseBody(String responseBody) {
+        this.responseBody = responseBody;
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "LambdaResponse{" +
+                "httpStatusCode=" + httpStatusCode +
+                ", responseBody='" + responseBody + '\'' +
+                '}';
+    }
 }

@@ -4,6 +4,6 @@ import java.io.InputStream;
 
 public interface StreamStrategy {
 
-    public InputStream readFile();
+    public InputStream getInputStream();
 
 }
