@@ -1,7 +1,13 @@
 package com.codechallenge.pwc.au.aws;
 
 
-//com.codechallenge.pwc.au.aws.ApiGatewayAddressBookMicroService::handleRequest
+/**
+ * An implementation of {@link RequestHandler} that handles POST and GET requests.
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
 
 
 import com.amazonaws.services.lambda.runtime.Context;

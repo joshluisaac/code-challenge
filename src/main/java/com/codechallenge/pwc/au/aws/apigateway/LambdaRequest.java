@@ -2,6 +2,14 @@ package com.codechallenge.pwc.au.aws.apigateway;
 
 import com.codechallenge.pwc.au.entities.Contact;
 
+/**
+ * API Gateway Request object defined [mostly] as per AWS documentation:
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
+
 public class LambdaRequest {
 
     public String name;

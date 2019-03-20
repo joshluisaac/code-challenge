@@ -1,5 +1,14 @@
 package com.codechallenge.pwc.au.aws.apigateway;
 
+/**
+ * JSON payload object
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
+
+
 public class JsonPayload {
 
     public String data;

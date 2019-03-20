@@ -1,6 +1,12 @@
 package com.codechallenge.pwc.au.aws.apigateway;
 
-import com.codechallenge.pwc.au.entities.Contact;
+/**
+ * Response class for an API Gateway lambda
+ *
+ * @author Joshua Nwankwo
+ * @version 1.0
+ * @since March 2019
+ */
 
 public class LambdaResponse {
 
