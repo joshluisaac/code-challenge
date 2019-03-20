@@ -1,6 +1,8 @@
 Address Book - PWC Australia Code Challenge Project
 ===================================================
 
+[![Build Status](https://travis-ci.org/joshluisaac/code-challenge.svg?branch=master)](https://travis-ci.org/joshluisaac/code-challenge)
+
 The intent of this project is to develop an address book that allows a user to store (between
 successive runs of the program) the name and phone numbers of their friends, with the
 following functionality:
