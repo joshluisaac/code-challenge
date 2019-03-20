@@ -26,7 +26,7 @@ public class AddressBook {
     public Map<String,String> cache;
     public StreamStrategy streamStrategy;
 
-    public AddressBook(StreamStrategy streamStrategy) throws IOException{
+    public AddressBook(StreamStrategy streamStrategy) {
         this.streamStrategy = streamStrategy;
         this.cache = readToCache();
     }
@@ -41,7 +41,7 @@ public class AddressBook {
 
 
     /*Deserialize the JSON file into Java objects*/
-    private Map<String, String> readToCache() throws IOException {
+    private Map<String, String> readToCache() {
         SortedMap<String, String> database = new JsonUtils().fromJson(new InputStreamReader(streamStrategy.getInputStream(), StandardCharsets.UTF_8), new TypeToken<SortedMap<String, String>>() {
         }.getType());
         SortedMap<String, String> existingContacts = new TreeMap<>(String::compareToIgnoreCase);
