@@ -3,9 +3,7 @@ package com.codechallenge.pwc.au.entities;
 import com.codechallenge.pwc.au.utils.JsonUtils;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -47,6 +45,10 @@ public class AddressBook {
         for (SortedMap.Entry<String, String> entry : database.entrySet())
             existingContacts.put(entry.getKey(), entry.getValue());
         return existingContacts;
+    }
+
+    public InputStream getDatabaseContents(File file) throws FileNotFoundException{
+        return new FileInputStream(file);
     }
 
 

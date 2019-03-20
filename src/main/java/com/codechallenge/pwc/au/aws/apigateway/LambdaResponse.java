@@ -1,4 +1,4 @@
-package com.codechallenge.pwc.au.aws.lambda;
+package com.codechallenge.pwc.au.aws.apigateway;
 
 import com.codechallenge.pwc.au.entities.Contact;
 

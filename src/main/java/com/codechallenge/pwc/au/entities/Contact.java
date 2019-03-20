@@ -10,8 +10,8 @@ package com.codechallenge.pwc.au.entities;
 
 public class Contact {
 
-    String name;
-    String phoneNumber;
+    public String name;
+    public String phoneNumber;
 
     public Contact(){}
 
