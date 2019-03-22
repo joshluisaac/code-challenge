@@ -17,9 +17,9 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.codechallenge.pwc.au.AddressBookAppCLI;
+import com.codechallenge.pwc.au.aws.apigateway.ApiRequest;
+import com.codechallenge.pwc.au.aws.apigateway.ApiResponse;
 import com.codechallenge.pwc.au.aws.apigateway.JsonPayload;
-import com.codechallenge.pwc.au.aws.apigateway.LambdaRequest;
-import com.codechallenge.pwc.au.aws.apigateway.LambdaResponse;
 import com.codechallenge.pwc.au.components.InputValidationParser;
 import com.codechallenge.pwc.au.components.S3ReadObjectStreamStrategy;
 import com.codechallenge.pwc.au.entities.AddressBook;
@@ -42,16 +42,16 @@ import java.text.MessageFormat;
 import java.util.Optional;
 import java.util.SortedMap;
 
-public class ApiGatewayAddressBookMicroService implements RequestHandler<LambdaRequest, String> {
+public class ApiGatewayAddressBookMicroService implements RequestHandler<ApiRequest, String> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiGatewayAddressBookMicroService.class);
 
 
     @Override
-    public String handleRequest(LambdaRequest request, Context context) {
+    public String handleRequest(ApiRequest request, Context context) {
 
         final String httpMethod = request.getHttpMethod();
-        LambdaResponse response = new LambdaResponse();
+        final ApiResponse response = new ApiResponse();
 
 
         if (httpMethod.equals("GET")) {
@@ -97,7 +97,7 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<LambdaR
         return result;
     }
 
-    public void handleGet(LambdaRequest request) {
+    public void handleGet(ApiRequest request) {
         Optional<Contact> maybeContact = Optional.of(new Contact(request.getName().trim(), request.getPhoneNumber().trim()));
         Contact contact = maybeContact.orElse(new Contact());
         AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(new S3ReadObjectStreamStrategy(readObject(getS3Client()))));

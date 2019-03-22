@@ -10,7 +10,7 @@ import com.codechallenge.pwc.au.entities.Contact;
  * @since March 2019
  */
 
-public class LambdaRequest {
+public class ApiRequest {
 
     public String name;
     public String httpMethod;

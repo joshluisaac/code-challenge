@@ -8,7 +8,7 @@ package com.codechallenge.pwc.au.aws.apigateway;
  * @since March 2019
  */
 
-public class LambdaResponse {
+public class ApiResponse {
 
     private int httpStatusCode;
     private String responseBody;
