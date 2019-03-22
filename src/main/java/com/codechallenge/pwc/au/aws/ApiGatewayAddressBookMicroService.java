@@ -46,14 +46,15 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<ApiRequ
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiGatewayAddressBookMicroService.class);
 
+    public ApiGatewayAddressBookMicroService(){
+
+    }
+
 
     @Override
     public String handleRequest(ApiRequest request, Context context) {
-
         final String httpMethod = request.getHttpMethod();
         final ApiResponse response = new ApiResponse();
-
-
         if (httpMethod.equals("GET")) {
             LOG.info("PWC_API_GW_INFO: Handling GET request");
             handleGet(request);
@@ -81,16 +82,20 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<ApiRequ
                 context.getLogger().log(errMsg);
                 LOG.error("PWC_API_GW_ERROR: {} is not a valid JSON", requestData);
             }
-
         }
         return response.toString();
     }
 
 
-    public String handlePost(final String postData) {
+    public AddressBookAppCLI getAppCliInstance(){
         AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(new S3ReadObjectStreamStrategy(readObject(getS3Client()))));
         IAddressBookUnionService unionService = new AddressBookUnionService();
-        AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
+         return new AddressBookAppCLI(service, unionService);
+    }
+
+
+    public String handlePost(final String postData) {
+        final AddressBookAppCLI cli = getAppCliInstance();
         SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(), MapperUtils.remapBook2(postData));
         String result = union.toString();
         System.out.println("Book 1/Book 2: " + result);
@@ -100,9 +105,7 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<ApiRequ
     public void handleGet(ApiRequest request) {
         Optional<Contact> maybeContact = Optional.of(new Contact(request.getName().trim(), request.getPhoneNumber().trim()));
         Contact contact = maybeContact.orElse(new Contact());
-        AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(new S3ReadObjectStreamStrategy(readObject(getS3Client()))));
-        IAddressBookUnionService unionService = new AddressBookUnionService();
-        AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
+        final AddressBookAppCLI cli = getAppCliInstance();
         cli.execute(contact);
         cli.displayAddressBook();
         replaceObject(getS3Client(),new JsonUtils().toJson(cli.getAddressBook()));
@@ -131,9 +134,8 @@ public class ApiGatewayAddressBookMicroService implements RequestHandler<ApiRequ
     }
 
 
-    void replaceObject(AmazonS3 s3Client, final String textContent){
+    public void replaceObject(AmazonS3 s3Client, final String textContent){
         s3Client.putObject(Constants.BUCKET_NAME,Constants.KEY,textContent);
-
     }
 
 
