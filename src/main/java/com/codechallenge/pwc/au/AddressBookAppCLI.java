@@ -10,6 +10,7 @@ import com.codechallenge.pwc.au.persistence.AddressBookDao;
 import com.codechallenge.pwc.au.persistence.IDao;
 import com.codechallenge.pwc.au.services.AddressBookService;
 import com.codechallenge.pwc.au.services.AddressBookUnionService;
+import com.codechallenge.pwc.au.services.IAddressBookService;
 import com.codechallenge.pwc.au.services.IAddressBookUnionService;
 import com.codechallenge.pwc.au.utils.JsonUtils;
 import com.codechallenge.pwc.au.utils.MapperUtils;
@@ -38,10 +39,10 @@ import java.util.TreeMap;
 public class AddressBookAppCLI {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddressBookAppCLI.class);
-    private final AddressBookService addressBookService;
+    private final IAddressBookService addressBookService;
     private final IAddressBookUnionService unionService;
 
-    public AddressBookAppCLI(AddressBookService addressBookService, IAddressBookUnionService unionService) {
+    public AddressBookAppCLI(IAddressBookService addressBookService, IAddressBookUnionService unionService) {
         this.addressBookService = addressBookService;
         this.unionService = unionService;
     }
@@ -149,18 +150,19 @@ public class AddressBookAppCLI {
             String contactName = args[1];
             String contactNumber = args[2];
 
+            //validate phone number
             boolean isValidPhoneNo = InputValidationParser.isValidPhoneNumber(contactNumber);
+
             if (isValidPhoneNo) {
+                //trim leading and trailing spaces in phone numbers
                 Optional<Contact> maybeContact = Optional.of(new Contact(contactName.trim(), contactNumber.trim()));
                 Contact contact = maybeContact.orElse(new Contact());
 
-                IDao dataAccess = new AddressBookDao();
-                InputStream inputStream = new FileInputStream(new File(AddressBookDatabase.DATABASE));
-                AddressBook addressBook = new AddressBook(new LocalStorageStreamStrategy(inputStream));
-                AddressBookService service = new AddressBookService(dataAccess, addressBook);
-                IAddressBookUnionService unionService = new AddressBookUnionService();
-                AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
+                //return address book from stream
+                AddressBook addressBook = new AddressBook(new LocalStorageStreamStrategy(new FileInputStream(new File(AddressBookDatabase.DATABASE))));
 
+                //construct CLI object
+                AddressBookAppCLI cli = new AddressBookAppCLI(new AddressBookService(new AddressBookDao(), addressBook), new AddressBookUnionService());
                 cli.execute(contact);
                 cli.displayAddressBook();
                 cli.writeToCache(new File(AddressBookDatabase.DATABASE), new JsonUtils().toJson(cli.getAddressBook()));
@@ -179,10 +181,10 @@ public class AddressBookAppCLI {
             boolean isValidJson = InputValidationParser.isValidJson(addressBook2RawInput);
 
             if (isValidJson) {
-                InputStream inputStream = new FileInputStream(new File(AddressBookDatabase.DATABASE));
-                AddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(new LocalStorageStreamStrategy(inputStream)));
-                IAddressBookUnionService unionService = new AddressBookUnionService();
-                AddressBookAppCLI cli = new AddressBookAppCLI(service, unionService);
+                IAddressBookService service = new AddressBookService(new AddressBookDao(), new AddressBook(new LocalStorageStreamStrategy(new FileInputStream(new File(AddressBookDatabase.DATABASE)))));
+
+                //construct CLI object
+                AddressBookAppCLI cli = new AddressBookAppCLI(service, new AddressBookUnionService());
                 SortedMap<String, String> union = cli.executeUnion(cli.getAddressBook(), MapperUtils.remapBook2(addressBook2RawInput));
                 System.out.println("Book 1/Book 2: " + union.toString());
             } else {
